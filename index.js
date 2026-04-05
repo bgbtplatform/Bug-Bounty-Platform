@@ -2,15 +2,11 @@ import  "dotenv/config";
 import express from 'express';
 import path from 'path'
 import { fileURLToPath } from 'node:url';
-
 import connectedToDB from './utils/db.js'
 
 import userRouter from './routes/user.route.js'
-
 import reportRouter from './routes/report.route.js'
-
 import companyRoutes from './routes/company.route.js'
-
 
 const app = express()
 
@@ -26,8 +22,6 @@ app.get("/",(req,res)=>{
 
 app.use("/users",userRouter)
 app.use("/reports",reportRouter)
-
-
 app.use("/api/company",companyRoutes);
 
 app.listen(5000,()=>{
