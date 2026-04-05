@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import connectedToDB from './utils/db.js'
 
 import userRouter from './routes/user.route.js'
+import reportRouter from './routes/report.route.js'
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/users",userRouter)
+app.use("/reports",reportRouter)
 
 app.listen(5000,()=>{
     console.log("Server running")
