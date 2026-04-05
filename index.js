@@ -10,6 +10,7 @@ import userRouter from './routes/user.route.js'
 import reportRouter from './routes/report.route.js'
 
 import companyRoutes from './routes/company.route.js'
+import scopeRoutes from "./routes/scope.route.js";
 
 
 const app = express()
@@ -29,6 +30,7 @@ app.use("/reports",reportRouter)
 
 
 app.use("/api/company",companyRoutes);
+app.use("/api/scope",scopeRoutes);
 
 app.listen(5000,()=>{
     console.log("Server running")
