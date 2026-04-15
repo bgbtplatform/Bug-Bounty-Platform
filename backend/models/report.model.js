@@ -6,11 +6,11 @@ const reportSchema = new mongoose.Schema({
         ref:'User',
         required:true
     },
-    // programId:{
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref:'Program',
-    //     required:true,
-    // },
+    programId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Program',
+        required:true,
+    },
     title:{
         type:String,
         required:true

@@ -147,9 +147,37 @@ async function deleteScope(req, res) {
 }
 
 
+// GET ALL SCOPES
+async function getAllScopes(req, res) {
+  try {
+    let { type, inScope, maxSeverity } = req.query;
+    let filter = {};
+    if (type) filter.type = type;
+    if (inScope !== undefined) filter.inScope = (inScope === "true");
+    if (maxSeverity) filter.maxSeverity = maxSeverity;
+
+    let scopes = await Scope.find(filter).populate("company", "name logo");
+
+    res.status(200).send({
+      success: true,
+      count: scopes.length,
+      data: scopes,
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Failed to fetch scopes",
+      error: error.message,
+    });
+  }
+}
+
 export {
   addScope,
   getScopesByCompany,
+  getAllScopes,
   getScope,
   updateScope,
   deleteScope,
