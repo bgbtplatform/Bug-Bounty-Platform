@@ -2,6 +2,8 @@ import  "dotenv/config";
 import express from 'express';
 import path from 'path'
 import { fileURLToPath } from 'node:url';
+import cors from 'cors'
+
 import connectedToDB from './utils/db.js'
 
 import userRouter from './routes/user.route.js'
@@ -12,12 +14,10 @@ import reportRouter from './routes/report.route.js'
 
 const app = express()
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-import cors from 'cors';
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(express.json())
 app.use("/uploads", express.static(path.join(__dirname, "uploads"), {

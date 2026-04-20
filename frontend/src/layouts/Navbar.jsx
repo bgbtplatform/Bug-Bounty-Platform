@@ -3,11 +3,11 @@ import logo from "../assets/logo.png";
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
       <div className="container">
 
         {/* Logo */}
-        <Link className="navbar-brand d-flex align-items-center" to="/">
+        <Link className="navbar-brand d-flex align-items-center fw-bold" to="/">
           <img
             src={logo}
             alt="Logo"
@@ -32,30 +32,30 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
 
           {/* Center links */}
-          <ul className="navbar-nav mx-auto">
+          <ul className="navbar-nav mx-auto gap-4 fs-5">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/">Home</NavLink>
+              <NavLink className="nav-link text-dark" to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/programs">Programs</NavLink>
+              <NavLink className="nav-link text-dark" to="/programs">Programs</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/about">Companies</NavLink>
+              <NavLink className="nav-link text-dark" to="/about">Companies</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/dashboard">Resources</NavLink>
+              <NavLink className="nav-link text-dark" to="/dashboard">Resources</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/leaderboard">About</NavLink>
+              <NavLink className="nav-link text-dark" to="/leaderboard">About</NavLink>
             </li>
           </ul>
 
           {/* Right side buttons */}
-          <div className="d-flex gap-2">
-            <Link className="btn btn-outline-light" to="/login">
+          <div className="d-flex gap-3">
+            <Link className="btn btn-outline-dark" to="/login">
               Login
             </Link>
-            <Link className="btn btn-primary" to="/register">
+            <Link className="btn btn-dark" to="/register">
               Sign Up
             </Link>
           </div>
