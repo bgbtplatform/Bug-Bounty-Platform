@@ -3,43 +3,24 @@ import logo from "../assets/logo.png";
 
 function Navbar() {
   return (
-    <nav
-      className="navbar navbar-expand-lg"
-      style={{
-        background: "#020617",
-        borderBottom: "1px solid #1f2937",
-      }}
-    >
-      <div className="container-fluid px-5">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container">
 
-        <Link
-          className="d-flex align-items-center text-decoration-none"
-          to="/"
-        >
+        {/* Logo */}
+        <Link className="navbar-brand d-flex align-items-center" to="/">
           <img
             src={logo}
-            alt="BugSeek Logo"
-            style={{
-              height: "72px",
-              width: "72px",
-              objectFit: "contain",
-              marginRight: "12px",
-            }}
+            alt="Logo"
+            width="40"
+            height="40"
+            className="me-2"
           />
-          <span
-            style={{
-              color: "#e5e7eb",
-              fontSize: "1.1rem",
-              fontWeight: "600",
-              letterSpacing: "0.5px",
-            }}
-          >
-            BugSeek
-          </span>
+          BugSeek
         </Link>
 
+        {/* Toggle button (mobile) */}
         <button
-          className="navbar-toggler border-0"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -47,62 +28,36 @@ function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
+        {/* Navbar content */}
         <div className="collapse navbar-collapse" id="navbarNav">
 
-          <ul className="navbar-nav mx-auto align-items-lg-center gap-lg-4">
-
-            {["/", "/programs", "/about", "/dashboard", "/leaderboard"].map((path, i) => {
-              const labels = ["Home", "Programs", "About", "Dashboard", "Leaderboard"];
-              return (
-                <li className="nav-item" key={i}>
-                  <NavLink
-                    to={path}
-                    className="nav-link"
-                    style={({ isActive }) => ({
-                      color: isActive ? "#3b82f6" : "#94a3b8",
-                      fontSize: "1.1rem",
-                      fontWeight: "500",
-                    })}
-                  >
-                    {labels[i]}
-                  </NavLink>
-                </li>
-              );
-            })}
-
+          {/* Center links */}
+          <ul className="navbar-nav mx-auto">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/">Home</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/programs">Programs</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/about">Companies</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/dashboard">Resources</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/leaderboard">About</NavLink>
+            </li>
           </ul>
 
-          <div className="d-flex gap-3">
-
-            <Link
-              to="/login"
-              className="btn"
-              style={{
-                border: "1px solid #1f2937",
-                color: "#e5e7eb",
-                fontSize: "1.1rem",
-                padding: "6px 16px",
-                borderRadius: "6px",
-              }}
-            >
+          {/* Right side buttons */}
+          <div className="d-flex gap-2">
+            <Link className="btn btn-outline-light" to="/login">
               Login
             </Link>
-
-            <Link
-              to="/register"
-              className="btn"
-              style={{
-                background: "#3b82f6",
-                color: "#020617",
-                fontSize: "1.1rem",
-                fontWeight: "600",
-                padding: "6px 16px",
-                borderRadius: "6px",
-              }}
-            >
+            <Link className="btn btn-primary" to="/register">
               Sign Up
             </Link>
-
           </div>
 
         </div>
