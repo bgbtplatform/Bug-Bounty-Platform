@@ -3,94 +3,82 @@ import { useParams } from "react-router-dom";
 import axiosClient from "../../apiClient";
 
 function CompanyDetails() {
-  const { id } = useParams();
-  const [company, setCompany] = useState(null);
+  let { id } = useParams();
+  let [company, setCompany] = useState(false);
+
+  async function getCompany() {
+    try {
+      let res = await axiosClient.get(`/company/${id}`);
+      let data = res.data.data || res.data;
+      setCompany(data);
+    } catch (error) {
+      console.log(error);
+      setCompany(false);
+    }
+  }
 
   useEffect(() => {
-    axiosClient
-      .get(`/company/${id}`)
-      .then((res) => {
-        const data = res.data.data || res.data;
-        setCompany(data);
-      })
-      .catch(() => {});
-  }, [id]);
+    getCompany();
+  }, []);
 
-  if (!company) return <p className="text-center mt-5">Loading...</p>;
+  if (!company) return;
 
   return (
-    <div className="container mt-4">
-      <div className="card p-4 mb-4">
-        <div className="d-flex align-items-center">
-          <img
-            src={company.logo || "/default-logo.png"}
-            alt={company.name}
-            style={{ width: "70px", marginRight: "20px" }}
-          />
-          <div>
-            <h2 className="mb-1">{company.name}</h2>
-            <p className="text-muted mb-1">{company.description}</p>
-            <a href={company.website} target="_blank" className="text-primary">
-              Visit Website
-            </a>
-          </div>
-        </div>
+    <div className="row g-4 p-4">
+      {/* LEFT SIDE */}
+      <div className="col-md-5 text-center">
+        <img
+          src={company.logo || "/default-logo.png"}
+          alt={company.name}
+          className="img-fluid mb-3"
+          style={{ maxHeight: "200px", objectFit: "contain" }}
+        />
+        <h2>{company.name}</h2>
+        <p className="text-muted">{company.description}</p>
+        <a href={company.website} target="_blank" rel="noreferrer">
+          Visit Website
+        </a>
       </div>
 
-      <div className="row g-4">
-        <div className="col-md-6">
-          <div className="card p-4 h-100">
-            <h5>Bounty Range</h5>
-            <h3 className="text-success">
-              ₹{company.bountyRange?.min} - ₹{company.bountyRange?.max}
-            </h3>
+      {/* RIGHT SIDE */}
+      <div className="col-md-7">
+        <h4 className="mb-3">Bounty Range</h4>
+        <p className="text-success fs-5">
+          ₹{company.bountyRange?.min} - ₹{company.bountyRange?.max}
+        </p>
+
+        <h4 className="mt-4 mb-2">Response Efficiency</h4>
+        <p>{company.responseEfficiency}%</p>
+
+        <h4 className="mt-4 mb-2">Severity Rewards</h4>
+        <div className="row text-center">
+          <div className="col">
+            <p className="text-muted">Low</p>
+            <p>₹{company.severityRewards?.low}</p>
+          </div>
+          <div className="col">
+            <p className="text-muted">Medium</p>
+            <p>₹{company.severityRewards?.medium}</p>
+          </div>
+          <div className="col">
+            <p className="text-muted">High</p>
+            <p>₹{company.severityRewards?.high}</p>
+          </div>
+          <div className="col">
+            <p className="text-muted">Critical</p>
+            <p className="text-danger">
+              ₹{company.severityRewards?.critical}
+            </p>
           </div>
         </div>
 
-        <div className="col-md-6">
-          <div className="card p-4 h-100">
-            <h5>Response Efficiency</h5>
-            <h3>{company.responseEfficiency}%</h3>
-          </div>
-        </div>
-
-        <div className="col-12">
-          <div className="card p-4">
-            <h5 className="mb-3">Severity Rewards</h5>
-            <div className="row text-center">
-              <div className="col">
-                <p className="text-muted">Low</p>
-                <h6>₹{company.severityRewards?.low}</h6>
-              </div>
-              <div className="col">
-                <p className="text-muted">Medium</p>
-                <h6>₹{company.severityRewards?.medium}</h6>
-              </div>
-              <div className="col">
-                <p className="text-muted">High</p>
-                <h6>₹{company.severityRewards?.high}</h6>
-              </div>
-              <div className="col">
-                <p className="text-muted">Critical</p>
-                <h6 className="text-danger">
-                  ₹{company.severityRewards?.critical}
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-12">
-          <div className="card p-4">
-            <h5 className="mb-3">Assets</h5>
-            <div className="d-flex flex-wrap gap-2">
-              {company.assets?.map((a, i) => (
-                <span key={i} className="badge bg-dark">
-                  {a}
-                </span>
-              ))}
-            </div>
-          </div>
+        <h4 className="mt-4 mb-2">Assets</h4>
+        <div className="d-flex flex-wrap gap-2">
+          {company.assets?.map((a, i) => (
+            <span key={i} className="badge bg-dark">
+              {a}
+            </span>
+          ))}
         </div>
       </div>
     </div>

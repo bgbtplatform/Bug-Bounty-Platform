@@ -6,66 +6,62 @@ function ProgramDetails() {
 
   const program = state?.program;
 
-  if (!program) {
-    return (
-      <div className="container mt-4 text-center">
-        <p>No program data found.</p>
-        <button
-          className="btn btn-dark"
-          onClick={() => navigate("/programs")}
-        >
-          Back
-        </button>
-      </div>
-    );
-  }
+  if (!program) return;
 
   return (
-    <div className="container mt-4">
-      <div className="card shadow-sm border-0 p-4">
+    <div className="p-4" style={{ maxWidth: "1100px", margin: "0 auto" }}>
+      
+      {/* HEADER */}
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2 className="mb-0">{program.title}</h2>
+        <span className="badge bg-dark">{program.status}</span>
+      </div>
 
-        <div className="d-flex justify-content-between">
-          <h3>{program.title}</h3>
-          <span className="badge bg-light text-dark border">
-            {program.status}
-          </span>
+      <p className="text-muted">{program.description}</p>
+
+      {/* GRID CONTENT */}
+      <div className="row g-4 mt-2">
+
+        {/* REWARDS */}
+        <div className="col-md-4">
+          <h5>Rewards</h5>
+          <ul className="mb-0">
+            <li>Low: ₹{program.rewards?.low}</li>
+            <li>Medium: ₹{program.rewards?.medium}</li>
+            <li>High: ₹{program.rewards?.high}</li>
+            <li>Critical: ₹{program.rewards?.critical}</li>
+          </ul>
         </div>
 
-        <p className="text-muted">{program.description}</p>
+        {/* RULES */}
+        <div className="col-md-4">
+          <h5>Rules</h5>
+          <ul className="mb-0">
+            {program.rules?.map((r, i) => (
+              <li key={i}>{r}</li>
+            ))}
+          </ul>
+        </div>
 
-        {/* Rewards */}
-        <h5 className="mt-3">Rewards</h5>
-        <ul>
-          <li>Low: ₹{program.rewards.low}</li>
-          <li>Medium: ₹{program.rewards.medium}</li>
-          <li>High: ₹{program.rewards.high}</li>
-          <li>Critical: ₹{program.rewards.critical}</li>
-        </ul>
-
-        {/* Rules */}
-        <h5>Rules</h5>
-        <ul>
-          {program.rules?.map((r, i) => (
-            <li key={i}>{r}</li>
-          ))}
-        </ul>
-
-        {/* Policy */}
-        <h5>Policy</h5>
-        <ul>
-          {program.policy?.map((p, i) => (
-            <li key={i}>{p}</li>
-          ))}
-        </ul>
-
-        <button
-          className="btn btn-outline-dark mt-3"
-          onClick={() => navigate("/programs")}
-        >
-          Back
-        </button>
+        {/* POLICY */}
+        <div className="col-md-4">
+          <h5>Policy</h5>
+          <ul className="mb-0">
+            {program.policy?.map((p, i) => (
+              <li key={i}>{p}</li>
+            ))}
+          </ul>
+        </div>
 
       </div>
+
+      {/* BACK BUTTON */}
+      <button
+        className="btn btn-outline-dark mt-4"
+        onClick={() => navigate("/programs")}
+      >
+        Back
+      </button>
     </div>
   );
 }
