@@ -40,10 +40,10 @@ function Navbar() {
               <NavLink className="nav-link text-dark" to="/programs">Programs</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link text-dark" to="/about">Companies</NavLink>
+              <NavLink className="nav-link text-dark" to="/company">Companies</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link text-dark" to="/dashboard">Resources</NavLink>
+              <NavLink className="nav-link text-dark" to="/dashboards">Resources</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link text-dark" to="/leaderboard">About</NavLink>
