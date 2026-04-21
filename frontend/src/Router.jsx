@@ -4,7 +4,7 @@ import Home from "./pages/Home"
 import Program from "./pages/Program"
 import Company from "./pages/Company"
 import CompanyDetails from "./pages/CompanyDetails"
-import Scope from "./pages/Scope"
+
 
 const Router = createBrowserRouter([
     {
