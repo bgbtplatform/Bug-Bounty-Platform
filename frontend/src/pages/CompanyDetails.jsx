@@ -4,7 +4,7 @@ import axiosClient from "../../apiClient";
 
 function CompanyDetails() {
   let { id } = useParams();
-  const navigate = useNavigate(); // ✅ FIXED
+  const navigate = useNavigate(); 
 
   let [company, setCompany] = useState(false);
 

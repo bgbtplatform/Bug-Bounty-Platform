@@ -8,7 +8,7 @@ function CompanyPrograms() {
 
   async function getPrograms() {
     try {
-      let res = await axiosClient.get(`/programs/company/${id}`);
+      let res = await axiosClient.get(`/program/company/${id}`);
       setPrograms(res.data.data);
     } catch (err) {
       console.log(err);
@@ -29,7 +29,7 @@ function CompanyPrograms() {
       ) : (
         <ul>
           {programs.map((p) => (
-            <li key={p._id}>• {p.title}</li>
+            <li key={p._id}> {p.title}</li>
           ))}
         </ul>
       )}
