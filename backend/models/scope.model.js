@@ -8,6 +8,12 @@ const scopeSchema = new mongoose.Schema(
       required: true,
     },
 
+    program: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Program",
+      required: true,
+    },
+
     assetName: {
       type: String,
       required: true,
