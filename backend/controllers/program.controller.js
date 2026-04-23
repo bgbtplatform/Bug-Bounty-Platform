@@ -52,6 +52,28 @@ async function deleteProgram(req,res){
     }
 }
 
+async function getProgramsByCompany(req, res) {
+  try {
+    let { companyId } = req.params;
+
+    let programs = await Program.find({
+      companyId: companyId
+    });
+
+    res.status(200).send({
+      success: true,
+      data: programs
+    });
+
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error fetching programs",
+      error: error.message
+    });
+  }
+}
+
 export {
-    addProgram,allPrograms,updateProgram,deleteProgram
+    addProgram,allPrograms,updateProgram,deleteProgram,getProgramsByCompany 
 }
