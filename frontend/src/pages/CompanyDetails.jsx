@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axiosClient from "../../apiClient";
 
 function CompanyDetails() {
   let { id } = useParams();
+  const navigate = useNavigate(); // ✅ FIXED
+
   let [company, setCompany] = useState(false);
 
   async function getCompany() {
@@ -19,9 +21,9 @@ function CompanyDetails() {
 
   useEffect(() => {
     getCompany();
-  }, []);
+  }, [id]);
 
-  if (!company) return;
+  if (!company) return null;
 
   return (
     <div className="row g-4 p-4">
@@ -79,6 +81,15 @@ function CompanyDetails() {
               {a}
             </span>
           ))}
+        </div>
+
+        <div className="mt-4 text-center">
+          <button
+            className="btn btn-primary px-4"
+            onClick={() => navigate(`/company/${id}/programs`)}
+          >
+            View Programs
+          </button>
         </div>
       </div>
     </div>

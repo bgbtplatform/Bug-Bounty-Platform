@@ -5,9 +5,9 @@ import Program from "./pages/Program"
 import Company from "./pages/Company"
 import CompanyDetails from "./pages/CompanyDetails"
 import ProgramDetails from "./pages/ProgramDetails";
-import Scope from "./pages/Scope";
+import CompanyPrograms from "./pages/CompanyPrograms";import Scope from "./pages/Scope";
 import ScopeDetails from "./pages/ScopeDetails";
-
+import CompanyPrograms from "./pages/CompanyPrograms";import CompanyPrograms from "./pages/CompanyPrograms";
 
 const Router = createBrowserRouter([
     {
@@ -16,12 +16,12 @@ const Router = createBrowserRouter([
         children:[
             {path:"/",element:<Home/>},
             {path:"/programs",element:<Program/>},
-            { path: "/program-details", element: <ProgramDetails /> },
+            {path: "/program-details", element: <ProgramDetails /> },
             { path: "/scope", element: <Scope /> },
             { path: "/scope-details", element: <ScopeDetails /> },
             {path:"/company",element:<Company/>},
             {path:'/company/:id',element:<CompanyDetails/>},
-
+            { path: "/company/:id/programs", element: <CompanyPrograms /> }            { path: "/company/:id/programs", element: <CompanyPrograms /> }            { path: "/company/:id/programs", element: <CompanyPrograms /> }
         
         ]
     }
