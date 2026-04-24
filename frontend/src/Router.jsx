@@ -5,6 +5,8 @@ import Program from "./pages/Program"
 import Company from "./pages/Company"
 import CompanyDetails from "./pages/CompanyDetails"
 import ProgramDetails from "./pages/ProgramDetails";
+import About from "./pages/About";
+import Resources from "./pages/Resources";
 import CompanyPrograms from "./pages/CompanyPrograms";
 import Scope from "./pages/Scope";
 import ScopeDetails from "./pages/ScopeDetails";
@@ -22,8 +24,9 @@ const Router = createBrowserRouter([
             { path: "/scope-details", element: <ScopeDetails /> },
             {path:"/company",element:<Company/>},
             {path:'/company/:id',element:<CompanyDetails/>},
+            {path:"/about",element:<About/>},
+            {path:"/resources",element:<Resources/>},
             { path: "/company/:id/programs", element: <CompanyPrograms /> }            
-          
         ]
     }
 ]);
