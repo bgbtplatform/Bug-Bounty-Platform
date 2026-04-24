@@ -55,13 +55,21 @@ function ProgramDetails() {
 
       </div>
 
-      {/* BACK BUTTON */}
-      <button
-        className="btn btn-outline-dark mt-4"
-        onClick={() => navigate("/programs")}
-      >
-        Back
-      </button>
+      {/* ACTIONS */}
+      <div className="d-flex gap-2 mt-4">
+        <button
+          className="btn btn-outline-dark"
+          onClick={() => navigate("/programs")}
+        >
+          Back
+        </button>
+        <button
+          className="btn btn-dark"
+          onClick={() => navigate("/scope", { state: { program } })}
+        >
+          View Scopes
+        </button>
+      </div>
     </div>
   );
 }

@@ -50,6 +50,31 @@ async function getScopesByCompany(req, res) {
 }
 
 
+// GET SCOPES BY PROGRAM
+async function getScopesByProgram(req, res) {
+  try {
+    let { programId } = req.params;
+
+    let scopes = await Scope.find({ program: programId });
+
+    res.status(200).send({
+      success: true,
+      message: "Scopes fetched successfully",
+      count: scopes.length,
+      data: scopes,
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Failed to fetch scopes",
+      error: error.message,
+    });
+  }
+}
+
+
 // GET SINGLE SCOPE
 async function getScope(req, res) {
   try {
@@ -177,6 +202,7 @@ async function getAllScopes(req, res) {
 export {
   addScope,
   getScopesByCompany,
+  getScopesByProgram,
   getAllScopes,
   getScope,
   updateScope,
