@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axiosClient from "../../apiClient";
+import axiosClient from "../apiClient";
 
 function Scope() {
   const { state } = useLocation();

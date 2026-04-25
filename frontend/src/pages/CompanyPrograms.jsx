@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axiosClient from "../../apiClient";
+import axiosClient from "../apiClient";
 
 function CompanyPrograms() {
   const { id } = useParams();
