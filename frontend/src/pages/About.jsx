@@ -1,3 +1,7 @@
+import amritImg from '../assets/amrit.jpeg';
+import snehlataImg from '../assets/snehlata.jpeg';
+import rajImg from '../assets/raj.jpeg';
+
 function About() {
   const headingFont = {
     fontFamily: 'Georgia, "Times New Roman", serif',
@@ -6,19 +10,22 @@ function About() {
 
   const developerCards = [
     {
-      name: "Developer One",
-      role: "Frontend Developer",
+      name: "Amritanshu Gupta",
+      role: "Full Stack Developer",
       text: "Focused on building clean user interfaces that make bug bounty workflows easier to understand and use.",
+      img: amritImg,
     },
     {
-      name: "Developer Two",
+      name: "Snehlata Kumari",
       role: "Backend Developer",
       text: "Worked on the platform logic and data flow to support program listings, company details, and reporting features.",
+      img: snehlataImg,
     },
     {
-      name: "Developer Three",
-      role: "Full Stack Developer",
+      name: "Raja Vishwkarma",
+      role: "Did Nothing",
       text: "Helped connect the platform experience end to end so researchers and companies can interact in a smoother way.",
+      img: rajImg,
     },
   ];
 
@@ -233,7 +240,7 @@ function About() {
                 }}
               >
                 <div
-                  className="rounded-4 d-flex align-items-center justify-content-center fw-semibold mb-4"
+                  className="rounded-4 d-flex align-items-center justify-content-center fw-semibold mb-4 overflow-hidden"
                   style={{
                     width: "92px",
                     height: "92px",
@@ -242,7 +249,7 @@ function About() {
                     border: "1px dashed #cbbba5",
                   }}
                 >
-                  Photo
+                  <img src={developer.img} alt={developer.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <h5 className="fw-bold mb-1">{developer.name}</h5>
                 <p className="fw-semibold mb-3" style={{ color: "#e85d3f" }}>

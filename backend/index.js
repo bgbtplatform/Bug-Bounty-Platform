@@ -1,4 +1,4 @@
-import  "dotenv/config";
+import "dotenv/config";
 import express from 'express';
 import path from 'path'
 import { fileURLToPath } from 'node:url';
@@ -29,17 +29,17 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"), {
     }
 }));
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.send("Hello World")
 })
 
-app.use("/users",userRouter)
-app.use("/company",companyRoutes);
-app.use("/program",programRoutes);
-app.use("/scope",scopeRoutes);
-app.use("/reports",reportRouter)
+app.use("/users", userRouter)
+app.use("/company", companyRoutes);
+app.use("/program", programRoutes);
+app.use("/scope", scopeRoutes);
+app.use("/reports", reportRouter)
 
-app.listen(5000,()=>{
+app.listen(5000, () => {
     console.log("Server running")
     connectedToDB()
 })
