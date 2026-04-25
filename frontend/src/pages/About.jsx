@@ -1,5 +1,5 @@
 import amritImg from '../assets/amrit.jpeg';
-import snehlataImg from '../assets/snehlata.jpeg';
+import snehlataImg from '../assets/snehlata.png';
 import rajImg from '../assets/raj.jpeg';
 
 function About() {
