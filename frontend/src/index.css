@@ -1,0 +1,32 @@
+.custom-nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.custom-nav-link:hover {
+  color: #e85d3f !important;
+}
+
+.custom-nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  display: block;
+  margin-top: 2px;
+  right: 0;
+  background: #e85d3f;
+  transition: width 0.3s ease;
+  -webkit-transition: width 0.3s ease;
+}
+
+.custom-nav-link:hover::after,
+.custom-nav-link.active-link::after {
+  width: 100%;
+  left: 0;
+  background: #e85d3f;
+}
+
+.active-link {
+  color: #e85d3f !important;
+}
