@@ -1,3 +1,7 @@
+import amritImg from '../assets/amrit.jpeg';
+import snehlataImg from '../assets/snehlata.jpeg';
+import rajImg from '../assets/raj.jpeg';
+
 function About() {
   const headingFont = {
     fontFamily: 'Georgia, "Times New Roman", serif',
@@ -6,98 +10,109 @@ function About() {
 
   const developerCards = [
     {
-      name: "Developer One",
-      role: "Frontend Developer",
+      name: "Amritanshu Gupta",
+      role: "Full Stack Developer",
       text: "Focused on building clean user interfaces that make bug bounty workflows easier to understand and use.",
+      img: amritImg,
     },
     {
-      name: "Developer Two",
+      name: "Snehlata Kumari",
       role: "Backend Developer",
       text: "Worked on the platform logic and data flow to support program listings, company details, and reporting features.",
+      img: snehlataImg,
     },
     {
-      name: "Developer Three",
-      role: "Full Stack Developer",
+      name: "Raja Vishwkarma",
+      role: "Did Nothing",
       text: "Helped connect the platform experience end to end so researchers and companies can interact in a smoother way.",
+      img: rajImg,
     },
   ];
 
+  const statCards = [
+    { label: "Focus", value: "Responsible Disclosure" },
+    { label: "Goal", value: "Clearer Program Discovery" },
+    { label: "Purpose", value: "Simpler Bounty Workflows" },
+  ];
+
   return (
-    <div className="py-5">
+    <div className="py-5" style={{ background: "#f8f5ef" }}>
       <section className="container mb-5">
-        <div
-          className="rounded-4 p-5 text-white"
-          style={{
-            background:
-              "linear-gradient(135deg, #111827 0%, #1f2937 55%, #374151 100%)",
-          }}
-        >
-          <div className="row g-4 align-items-center">
-            <div className="col-lg-8">
-              <span className="badge bg-light text-dark mb-3 px-3 py-2">
-                About BugSeek
+        <div className="row g-4 align-items-stretch">
+          <div className="col-lg-8">
+            <div
+              className="h-100 rounded-4 p-4 p-lg-5"
+              style={{
+                background: "#f2eadf",
+                border: "1px solid #e5dccf",
+              }}
+            >
+              <span
+                className="d-inline-block px-3 py-2 rounded-pill mb-4"
+                style={{
+                  background: "#111827",
+                  color: "#ffffff",
+                  fontSize: "0.82rem",
+                  letterSpacing: "0.06em",
+                }}
+              >
+                ABOUT BUGSEEK
               </span>
-              <h1 className="display-5 fw-bold mb-3" style={headingFont}>
-                Building a simpler space for bug bounty collaboration
+
+              <h1
+                className="fw-bold mb-4"
+                style={{
+                  ...headingFont,
+                  fontSize: "clamp(2.7rem, 5vw, 4.8rem)",
+                  lineHeight: "1.02",
+                  color: "#111827",
+                  maxWidth: "760px",
+                }}
+              >
+                Building a simpler space for bug bounty collaboration.
               </h1>
+
               <p
-                className="fs-5 mb-0"
-                style={{ maxWidth: "760px", color: "#e5e7eb", lineHeight: "1.7" }}
+                className="mb-0"
+                style={{
+                  maxWidth: "700px",
+                  color: "#4b5563",
+                  fontSize: "1.1rem",
+                  lineHeight: "1.8",
+                }}
               >
                 BugSeek is designed to connect ethical hackers with companies in
                 a cleaner, more accessible environment where vulnerabilities can
-                be explored, reported, and reviewed with more clarity.
+                be explored, reviewed, and understood with more clarity.
               </p>
             </div>
+          </div>
 
-            <div className="col-lg-4">
-              <div className="row g-3">
-                <div className="col-6">
+          <div className="col-lg-4">
+            <div className="row g-4 h-100">
+              {statCards.map((item, index) => (
+                <div className={index === 2 ? "col-12" : "col-6"} key={item.label}>
                   <div
-                    className="rounded-4 p-3 h-100"
-                    style={{ background: "rgba(255,255,255,0.08)" }}
+                    className="rounded-4 p-4 h-100"
+                    style={{
+                      background: index === 2 ? "#111827" : "#ffffff",
+                      border: index === 2 ? "none" : "1px solid #ece6da",
+                      color: index === 2 ? "#ffffff" : "#111827",
+                    }}
                   >
                     <small
-                      className="text-uppercase d-block mb-2"
-                      style={{ color: "#d1d5db", letterSpacing: "0.08em" }}
+                      className="d-block mb-2 text-uppercase"
+                      style={{
+                        color: index === 2 ? "#cbd5e1" : "#6b7280",
+                        letterSpacing: "0.08em",
+                      }}
                     >
-                      Focus
+                      {item.label}
                     </small>
-                    <div className="fw-semibold">Responsible Disclosure</div>
+                    <div className="fw-semibold">{item.value}</div>
                   </div>
                 </div>
-                <div className="col-6">
-                  <div
-                    className="rounded-4 p-3 h-100"
-                    style={{ background: "rgba(255,255,255,0.08)" }}
-                  >
-                    <small
-                      className="text-uppercase d-block mb-2"
-                      style={{ color: "#d1d5db", letterSpacing: "0.08em" }}
-                    >
-                      Goal
-                    </small>
-                    <div className="fw-semibold">Clearer Program Discovery</div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div
-                    className="rounded-4 p-3"
-                    style={{ background: "rgba(255,255,255,0.08)" }}
-                  >
-                    <small
-                      className="text-uppercase d-block mb-2"
-                      style={{ color: "#d1d5db", letterSpacing: "0.08em" }}
-                    >
-                      Purpose
-                    </small>
-                    <div className="fw-semibold">
-                      To make bug bounty workflows easier to understand for both
-                      researchers and companies.
-                    </div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -106,20 +121,32 @@ function About() {
       <section className="container mb-5">
         <div className="row g-4 align-items-stretch">
           <div className="col-lg-5">
-            <div className="border rounded-4 h-100 p-4 bg-white">
-              <span className="badge text-bg-dark mb-3">Our Mission</span>
-              <h2 className="fw-bold mb-3" style={headingFont}>
-                Make bug bounty participation feel more approachable
+            <div
+              className="rounded-4 p-4 p-lg-5 h-100"
+              style={{
+                background: "#ffffff",
+                border: "1px solid #ece6da",
+              }}
+            >
+              <small
+                className="d-block mb-3"
+                style={{ color: "#6b7280", letterSpacing: "0.08em" }}
+              >
+                OUR MISSION
+              </small>
+              <h2 className="fw-bold mb-3" style={{ ...headingFont, fontSize: "clamp(2rem, 4vw, 3rem)" }}>
+                Make bug bounty participation feel more approachable.
               </h2>
-              <p className="text-muted mb-3" style={{ lineHeight: "1.7" }}>
+              <p className="text-muted mb-3" style={{ lineHeight: "1.8" }}>
                 BugSeek is built around the idea that security collaboration
-                should be easier to understand. Researchers need clearer program
-                views, and companies need a better way to present scope, assets,
-                and reward expectations.
+                should feel easier to read and navigate. Researchers need
+                clearer program views, and companies need a cleaner way to
+                present scope, assets, and reward expectations.
               </p>
-              <p className="text-muted mb-0" style={{ lineHeight: "1.7" }}>
-                Instead of feeling scattered, the experience should help both
-                sides move through discovery and reporting with more confidence.
+              <p className="text-muted mb-0" style={{ lineHeight: "1.8" }}>
+                Instead of a scattered experience, the platform should guide
+                both sides through exploration and reporting with more
+                confidence.
               </p>
             </div>
           </div>
@@ -127,9 +154,15 @@ function About() {
           <div className="col-lg-7">
             <div className="row g-4">
               <div className="col-md-6">
-                <div className="border rounded-4 h-100 p-4 bg-white">
+                <div
+                  className="rounded-4 p-4 h-100"
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid #ece6da",
+                  }}
+                >
                   <h4 className="fw-bold mb-3">For Researchers</h4>
-                  <p className="text-muted mb-0" style={{ lineHeight: "1.7" }}>
+                  <p className="text-muted mb-0" style={{ lineHeight: "1.8" }}>
                     Explore programs, understand rewards, review scope, and get
                     a cleaner overview of what is worth testing.
                   </p>
@@ -137,22 +170,34 @@ function About() {
               </div>
 
               <div className="col-md-6">
-                <div className="border rounded-4 h-100 p-4 bg-white">
+                <div
+                  className="rounded-4 p-4 h-100"
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid #ece6da",
+                  }}
+                >
                   <h4 className="fw-bold mb-3">For Companies</h4>
-                  <p className="text-muted mb-0" style={{ lineHeight: "1.7" }}>
+                  <p className="text-muted mb-0" style={{ lineHeight: "1.8" }}>
                     Present policies, eligible assets, and program expectations
-                    in a way that is easier to understand at a glance.
+                    in a way that feels easier to scan at a glance.
                   </p>
                 </div>
               </div>
 
               <div className="col-12">
-                <div className="border rounded-4 h-100 p-4 bg-white">
+                <div
+                  className="rounded-4 p-4 h-100"
+                  style={{
+                    background: "#e85d3f",
+                    color: "#ffffff",
+                  }}
+                >
                   <h4 className="fw-bold mb-3">Why It Matters</h4>
-                  <p className="text-muted mb-0" style={{ lineHeight: "1.7" }}>
+                  <p className="mb-0" style={{ color: "#fff1ed", lineHeight: "1.8" }}>
                     Bug bounty programs support responsible disclosure and help
                     organizations identify weaknesses early. A well-structured
-                    platform can make that process easier to navigate for both
+                    platform makes that process easier to navigate for both
                     sides.
                   </p>
                 </div>
@@ -162,40 +207,57 @@ function About() {
         </div>
       </section>
 
-      <section className="container mb-5">
-        <div className="text-center mb-5">
-          <h2 className="fw-bold" style={headingFont}>
-            Developers
-          </h2>
-          <p className="text-muted mb-0">
-            A cleaner card layout is kept here so you can add team photos and
-            details later.
-          </p>
+      <section className="container pb-2">
+        <div className="row align-items-end g-4 mb-5">
+          <div className="col-lg-7">
+            <small
+              className="d-block mb-3"
+              style={{ color: "#6b7280", letterSpacing: "0.08em" }}
+            >
+              DEVELOPERS
+            </small>
+            <h2 className="fw-bold mb-0" style={{ ...headingFont, fontSize: "clamp(2rem, 4vw, 3.3rem)" }}>
+              Meet the team behind BugSeek's product and platform experience.
+            </h2>
+          </div>
+          <div className="col-lg-5">
+            <p className="text-muted mb-0" style={{ lineHeight: "1.8" }}>
+              Our team brings together design, development, and product
+              thinking to create a platform that feels clear, reliable, and
+              purposeful for both researchers and organizations.
+            </p>
+          </div>
         </div>
 
         <div className="row g-4">
           {developerCards.map((developer) => (
             <div className="col-md-4" key={developer.name}>
-              <div className="card h-100 border-0 shadow-sm rounded-4">
-                <div className="card-body p-4">
-                  <div
-                    className="rounded-4 d-flex align-items-center justify-content-center fw-semibold mb-4"
-                    style={{
-                      width: "90px",
-                      height: "90px",
-                      background: "#f3f4f6",
-                      color: "#111827",
-                      border: "1px dashed #9ca3af",
-                    }}
-                  >
-                    Photo
-                  </div>
-                  <h5 className="fw-bold mb-1">{developer.name}</h5>
-                  <p className="text-dark fw-semibold mb-3">{developer.role}</p>
-                  <p className="text-muted mb-0" style={{ lineHeight: "1.7" }}>
-                    {developer.text}
-                  </p>
+              <div
+                className="h-100 rounded-4 p-4"
+                style={{
+                  background: "#ffffff",
+                  border: "1px solid #ece6da",
+                }}
+              >
+                <div
+                  className="rounded-4 d-flex align-items-center justify-content-center fw-semibold mb-4 overflow-hidden"
+                  style={{
+                    width: "92px",
+                    height: "92px",
+                    background: "#f2eadf",
+                    color: "#111827",
+                    border: "1px dashed #cbbba5",
+                  }}
+                >
+                  <img src={developer.img} alt={developer.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
+                <h5 className="fw-bold mb-1">{developer.name}</h5>
+                <p className="fw-semibold mb-3" style={{ color: "#e85d3f" }}>
+                  {developer.role}
+                </p>
+                <p className="text-muted mb-0" style={{ lineHeight: "1.8" }}>
+                  {developer.text}
+                </p>
               </div>
             </div>
           ))}
@@ -204,5 +266,6 @@ function About() {
     </div>
   );
 }
+
 
 export default About;

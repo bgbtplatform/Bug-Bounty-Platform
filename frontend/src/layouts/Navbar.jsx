@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3 sticky-top">
       <div className="container">
 
         {/* Logo */}
@@ -24,6 +24,9 @@ function Navbar() {
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -32,26 +35,26 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
 
           {/* Center links */}
-          <ul className="navbar-nav mx-auto gap-4 fs-5">
+          <ul className="navbar-nav mx-auto gap-2 gap-lg-4 fs-5">
             <li className="nav-item">
-              <NavLink className="nav-link text-dark" to="/">Home</NavLink>
+              <NavLink className={({ isActive }) => `nav-link fw-semibold custom-nav-link ${isActive ? "active-link" : "text-dark"}`} to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link text-dark" to="/programs">Programs</NavLink>
+              <NavLink className={({ isActive }) => `nav-link fw-semibold custom-nav-link ${isActive ? "active-link" : "text-dark"}`} to="/programs">Programs</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link text-dark" to="/company">Company</NavLink>
+              <NavLink className={({ isActive }) => `nav-link fw-semibold custom-nav-link ${isActive ? "active-link" : "text-dark"}`} to="/company">Company</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link text-dark" to="/resources">Resources</NavLink>
+              <NavLink className={({ isActive }) => `nav-link fw-semibold custom-nav-link ${isActive ? "active-link" : "text-dark"}`} to="/resources">Resources</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link text-dark" to="/about">About</NavLink>
+              <NavLink className={({ isActive }) => `nav-link fw-semibold custom-nav-link ${isActive ? "active-link" : "text-dark"}`} to="/about">About</NavLink>
             </li>
           </ul>
 
           {/* Right side buttons */}
-          <div className="d-flex gap-3">
+          <div className="d-flex gap-3 mt-3 mt-lg-0">
             <Link className="btn btn-outline-dark" to="/login">
               Login
             </Link>
