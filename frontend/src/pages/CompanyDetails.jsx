@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axiosClient from "../../apiClient";
+import axiosClient from "../apiClient";
 
 function CompanyDetails() {
   let { id } = useParams();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   let [company, setCompany] = useState(false);
 
@@ -27,14 +27,14 @@ function CompanyDetails() {
 
   return (
     <div className="container mt-4 mb-5" style={{ maxWidth: "1100px", margin: "0 auto" }}>
-      
+
       {/* HEADER SECTION */}
       <div className="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
         <h2 className="mb-0 fw-bold">{company.name}</h2>
-        <a 
-          href={company.website} 
-          target="_blank" 
-          rel="noreferrer" 
+        <a
+          href={company.website}
+          target="_blank"
+          rel="noreferrer"
           className="btn btn-outline-dark btn-sm"
         >
           Visit Website
@@ -59,7 +59,7 @@ function CompanyDetails() {
 
         {/* RIGHT SIDE */}
         <div className="col-md-8">
-          
+
           {/* TOP METRICS */}
           <div className="row g-3 mb-4">
             <div className="col-sm-6">

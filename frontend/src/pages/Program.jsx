@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosClient from "../../apiClient";
+import axiosClient from "../apiClient";
 
 function Program() {
   const [programs, setPrograms] = useState([]);

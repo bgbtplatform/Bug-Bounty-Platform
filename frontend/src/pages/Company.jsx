@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axiosClient from "../../apiClient";
+import axiosClient from "../apiClient";
 import { useNavigate } from "react-router-dom";
 
 function Company() {
@@ -25,7 +25,7 @@ function Company() {
 
   return (
     <div className="p-4">
-      
+
       {/* TOP DESCRIPTION */}
       <div className="mb-4">
         <h2 className="fw-bold">Companies</h2>

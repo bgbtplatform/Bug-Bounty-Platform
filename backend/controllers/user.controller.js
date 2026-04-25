@@ -154,6 +154,59 @@ async function deleteUser(req, res) {
     }
 }
 
+// auth functions
+async function loginUser(req, res){
+    try {
+        let { email, password } = req.body
+        let user = await User.findOne({ email: email })
+        if(user){
+            if(user.password == password){
+                let token = jwt.sign({id: user._id, email: user.email}, process.env.JWT_SECRET, { expiresIn: '1d' })
+                res.cookie('token', token, {
+                    httpOnly: true,
+                    secure: false,
+                    maxAge: 86400 * 1000 // milis: 1 day
+                })
+                res.send(user)
+            } else {
+                res.status(401).send({message: "Invalid Password"})
+            }
+        } else {
+            res.status(404).send({message: "Invalid Email"})
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({"message": "user not logged in", "error": error.message})
+    
+    }
+}
+
+async function logout(req, res){
+    try {
+        res.clearCookie('token')
+        res.send({message: "Logged Out"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({"message": "user not logged out", "error": error.message})
+    }
+}
+
+async function getCurrentUser(req, res){
+    try {
+        let { id } = req.user
+        let user = await User.findOne({_id: id}).select('-password')
+        if(user){
+            res.send(user)
+        } else {
+            res.status(404).send({message: "User not found"});
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(404).send({"message": "user not found", "error": error.message})
+    }
+}
+
+
 
 
 export {
@@ -163,5 +216,8 @@ export {
     searchUser,
     updateUser,
     updateUserAvatar, 
-    deleteUser
+    deleteUser,
+    loginUser,
+    logout,
+    getCurrentUser
 };
