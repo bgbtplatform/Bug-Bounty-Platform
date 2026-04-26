@@ -1,11 +1,21 @@
 import Scope from "../models/scope.model.js";
-
+import Program from "../models/program.model.js";
 
 // ADD SCOPE
 async function addScope(req, res) {
   try {
-    let newScope = req.body;
+    let { program: programId } = req.body;
+    
+    // Verify Program Ownership
+    const program = await Program.findById(programId);
+    if (!program) return res.status(404).json({ success: false, message: "Program not found" });
+    
+    if (program.owner?.toString() !== req.user.id) {
+      return res.status(403).json({ success: false, message: "Only the program owner can add scopes" });
+    }
 
+    let newScope = req.body;
+    newScope.owner = req.user.id;
     newScope = await Scope.create(newScope);
 
     res.status(201).send({
@@ -110,11 +120,15 @@ async function getScope(req, res) {
 async function updateScope(req, res) {
   try {
     let { id } = req.params;
-    let updatedScope = req.body;
+    let data = req.body;
 
-    updatedScope = await Scope.findOneAndUpdate(
+    const scope = await Scope.findById(id);
+    if (!scope) return res.status(404).send({ success: false, message: "Scope not found" });
+    if (scope.owner?.toString() !== req.user.id) return res.status(403).send({ success: false, message: "Unauthorized" });
+
+    let updatedScope = await Scope.findOneAndUpdate(
       { _id: id },
-      updatedScope,
+      data,
       { returnDocument: "after" }
     );
 
@@ -146,8 +160,11 @@ async function updateScope(req, res) {
 async function deleteScope(req, res) {
   try {
     let { id } = req.params;
+    const scope = await Scope.findById(id);
+    if (!scope) return res.status(404).send({ success: false, message: "Scope not found" });
+    if (scope.owner?.toString() !== req.user.id) return res.status(403).send({ success: false, message: "Unauthorized" });
 
-    let scope = await Scope.findOneAndDelete({ _id: id });
+    await Scope.findByIdAndDelete(id);
 
     if (scope !== null) {
       res.status(200).send({

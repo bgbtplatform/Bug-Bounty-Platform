@@ -8,18 +8,19 @@ import {
   updateScope,
   deleteScope,
 } from "../controllers/scope.controller.js";
+import auth from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
-router.post("/", addScope);
+router.post("/", auth, addScope);
 
 router.get("/", getAllScopes);
 router.get("/company/:companyId", getScopesByCompany);
 router.get("/program/:programId", getScopesByProgram);
 router.get("/:id", getScope);
 
-router.put("/:id", updateScope);
+router.put("/:id", auth, updateScope);
 
-router.delete("/:id", deleteScope);
+router.delete("/:id", auth, deleteScope);
 
 export default router;

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosClient from "../apiClient";
+import { useAuth } from "../context/AuthContext";
 
 function CompanyDetails() {
   let { id } = useParams();
   const navigate = useNavigate();
-
+  const { user } = useAuth();
   let [company, setCompany] = useState(false);
 
   async function getCompany() {
@@ -16,6 +17,17 @@ function CompanyDetails() {
     } catch (error) {
       console.log(error);
       setCompany(false);
+    }
+  }
+
+  async function handleDelete() {
+    if (!window.confirm("Are you sure you want to delete this company?")) return;
+    try {
+      await axiosClient.delete(`/company/${id}`);
+      navigate("/company");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete company");
     }
   }
 
@@ -31,14 +43,26 @@ function CompanyDetails() {
       {/* HEADER SECTION */}
       <div className="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
         <h2 className="mb-0 fw-bold">{company.name}</h2>
-        <a
-          href={company.website}
-          target="_blank"
-          rel="noreferrer"
-          className="btn btn-outline-dark btn-sm"
-        >
-          Visit Website
-        </a>
+        <div className="d-flex gap-2">
+          <a
+            href={company.website}
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-outline-dark btn-sm d-flex align-items-center"
+          >
+            Visit Website
+          </a>
+          {user && user._id === company.owner && (
+            <>
+              <button className="btn btn-primary btn-sm" onClick={() => navigate(`/company/edit/${id}`)}>
+                Edit
+              </button>
+              <button className="btn btn-danger btn-sm" onClick={handleDelete}>
+                Delete
+              </button>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="row g-5">

@@ -42,6 +42,10 @@ const programSchema = new mongoose.Schema({
         type:String,
         enum:['DRAFT','ACTIVE','PAUSED','CLOSED'],
         default:'DRAFT'
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 },{timestamps:true})
 

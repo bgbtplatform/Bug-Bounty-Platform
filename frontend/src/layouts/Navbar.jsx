@@ -1,7 +1,26 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import axiosClient from "../apiClient";
 import logo from "../assets/logo.png";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  async function handleLogout() {
+    try {
+      let res = await axiosClient.get("/users/logout");
+      console.log(res);
+      logout();
+      navigate("/");
+    } catch (error) {
+      console.log(error.response);
+      // Still clear client-side state even if server call fails
+      logout();
+      navigate("/");
+    }
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3 sticky-top">
       <div className="container">
@@ -53,14 +72,31 @@ function Navbar() {
             </li>
           </ul>
 
-          {/* Right side buttons */}
-          <div className="d-flex gap-3 mt-3 mt-lg-0">
-            <Link className="btn btn-outline-dark" to="/login">
-              Login
-            </Link>
-            <Link className="btn btn-dark" to="/register">
-              Sign Up
-            </Link>
+          <div className="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+            {
+              user ? (
+                <>
+                  <span className="fw-semibold text-dark">
+                    Hi, {user.username}
+                  </span>
+                  {user.role === 'HUNTER' && (
+                    <Link className="btn btn-outline-dark" to="/my-reports">My Reports</Link>
+                  )}
+                  <button className="btn btn-outline-danger" type="button" onClick={handleLogout}>
+                    Log Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link className="btn btn-outline-dark" to="/login">
+                    Login
+                  </Link>
+                  <Link className="btn btn-dark" to="/register">
+                    Sign Up
+                  </Link>
+                </>
+              )
+            }
           </div>
 
         </div>

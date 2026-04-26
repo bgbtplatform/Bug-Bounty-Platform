@@ -8,6 +8,8 @@ async function createCompany(req, res) {
       newCompany.logo = `http://localhost:5000/uploads/${req.file.filename}`;
     }
 
+    newCompany.owner = req.user.id; // From auth middleware
+
     if (!newCompany.name) {
       return res.status(400).send({
         success: false,
@@ -144,11 +146,33 @@ async function updateCompanyLogo(req, res) {
 async function updateCompanyDetails(req, res) {
   try {
     let { id } = req.params;
-    let updatedCompany = req.body;
+    let updateData = req.body;
 
-    updatedCompany = await Company.findOneAndUpdate(
+    // Verify Ownership
+    const company = await Company.findById(id);
+    if (!company) {
+      return res.status(404).send({ success: false, message: "Company not found" });
+    }
+    
+    if (company.owner?.toString() !== req.user.id) {
+      return res.status(403).send({ success: false, message: "Unauthorized to update this company" });
+    }
+
+    if (req.file) {
+      updateData.logo = `http://localhost:5000/uploads/${req.file.filename}`;
+    }
+
+    // Multer sends everything as strings, so we must parse nested objects
+    if (typeof updateData.bountyRange === 'string') {
+      updateData.bountyRange = JSON.parse(updateData.bountyRange);
+    }
+    if (typeof updateData.severityRewards === 'string') {
+      updateData.severityRewards = JSON.parse(updateData.severityRewards);
+    }
+
+    const updatedCompany = await Company.findOneAndUpdate(
       { _id: id },
-      updatedCompany,
+      updateData,
       { returnDocument: "after", runValidators: true }
     );
 

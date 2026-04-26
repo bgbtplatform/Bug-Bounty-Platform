@@ -18,17 +18,20 @@ import auth from "../middleware/auth.middleware.js";
 
 let router = express.Router();
 
+// Public routes
 router.post("/", upload.single("avatarUrl"), addUser);
-router.get("/search", searchUser);
-router.get("/", allUsers);
 router.post("/login", loginUser);
-router.get("/logout", logout);
+router.get("/search", searchUser);
+
+// Protected routes — order matters: specific paths before /:id
 router.get("/current", auth, getCurrentUser);
-router.get("/:id", getUserById);       
+router.get("/logout", auth, logout);
+router.get("/", auth, allUsers);
+router.get("/:id", auth, getUserById);
 
-router.put("/:id/avatar", upload.single("avatarUrl"), updateUserAvatar);
-router.put("/:id", updateUser);
+router.put("/:id/avatar", auth, upload.single("avatarUrl"), updateUserAvatar);
+router.put("/:id", auth, updateUser);
 
-router.delete("/:id", deleteUser);
+router.delete("/:id", auth, deleteUser);
 
 export default router;

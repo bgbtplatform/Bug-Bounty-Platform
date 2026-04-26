@@ -1,12 +1,26 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import axiosClient from "../apiClient";
 
 function ProgramDetails() {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const program = state?.program;
 
-  if (!program) return;
+  if (!program) return null;
+
+  async function handleDelete() {
+    if (!window.confirm("Are you sure you want to delete this program?")) return;
+    try {
+      await axiosClient.delete(`/program/${program._id}`);
+      navigate("/programs");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete program");
+    }
+  }
 
   return (
     <div className="p-4" style={{ maxWidth: "1100px", margin: "0 auto" }}>
@@ -14,7 +28,15 @@ function ProgramDetails() {
       {/* HEADER */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 className="mb-0">{program.title}</h2>
-        <span className="badge bg-dark">{program.status}</span>
+        <div className="d-flex gap-2 align-items-center">
+            <span className="badge bg-dark px-3 py-2">{program.status}</span>
+            {user && user._id === program.owner && (
+                <>
+                    <button className="btn btn-outline-primary btn-sm" onClick={() => navigate(`/program/edit/${program._id}`)}>Edit</button>
+                    <button className="btn btn-outline-danger btn-sm" onClick={handleDelete}>Delete</button>
+                </>
+            )}
+        </div>
       </div>
 
       <p className="text-muted">{program.description}</p>

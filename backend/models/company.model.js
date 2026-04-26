@@ -49,6 +49,10 @@ const companySchema = new mongoose.Schema({
     },
     responseEfficiency: {
         type: Number
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 }, { timestamps: true }
 );
