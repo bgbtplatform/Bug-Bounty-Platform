@@ -11,6 +11,11 @@ function ProgramDetails() {
 
   if (!program) return null;
 
+  const displayFont = {
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    letterSpacing: "-0.03em",
+  };
+
   async function handleDelete() {
     if (!window.confirm("Are you sure you want to delete this program?")) return;
     try {
@@ -23,74 +28,167 @@ function ProgramDetails() {
   }
 
   return (
-    <div className="p-4" style={{ maxWidth: "1100px", margin: "0 auto" }}>
-      
-      {/* HEADER */}
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2 className="mb-0">{program.title}</h2>
-        <div className="d-flex gap-2 align-items-center">
-            <span className="badge bg-dark px-3 py-2">{program.status}</span>
-            {user && user._id === program.owner && (
-                <>
-                    <button className="btn btn-outline-primary btn-sm" onClick={() => navigate(`/program/edit/${program._id}`)}>Edit</button>
-                    <button className="btn btn-outline-danger btn-sm" onClick={handleDelete}>Delete</button>
-                </>
-            )}
+    <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
+      <div className="container" style={{ maxWidth: "1100px" }}>
+        
+        {/* HEADER SECTION */}
+        <div className="row g-4 align-items-center mb-5">
+          <div className="col-lg-12">
+            <div
+              className="rounded-4 p-4 p-lg-5"
+              style={{
+                background: "#ffffff",
+                border: "1px solid #ece6da",
+              }}
+            >
+              <div className="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+                <div>
+                  <span
+                    className="d-inline-block px-3 py-2 rounded-pill mb-4"
+                    style={{
+                      background: "#111827",
+                      color: "#ffffff",
+                      fontSize: "0.75rem",
+                      letterSpacing: "0.06em",
+                      fontWeight: "600"
+                    }}
+                  >
+                    PROGRAM DETAILS
+                  </span>
+                  <h1
+                    className="fw-bold mb-3"
+                    style={{
+                      ...displayFont,
+                      fontSize: "clamp(2rem, 5vw, 3.5rem)",
+                      lineHeight: "1.1",
+                      color: "#111827",
+                    }}
+                  >
+                    {program.title}
+                  </h1>
+                  <div className="d-flex align-items-center gap-3">
+                    <span 
+                      className="px-3 py-1 rounded-pill small fw-bold text-uppercase"
+                      style={{
+                        background: program.status === 'ACTIVE' ? "#dcfce7" : "#f1f5f9",
+                        color: program.status === 'ACTIVE' ? "#166534" : "#475569",
+                        fontSize: "0.7rem",
+                        letterSpacing: "0.05em"
+                      }}
+                    >
+                      {program.status}
+                    </span>
+                    {user && user._id === program.owner && (
+                      <div className="d-flex gap-2">
+                        <button className="btn btn-sm btn-outline-dark px-3 rounded-pill" onClick={() => navigate(`/program/edit/${program._id}`)}>Edit</button>
+                        <button className="btn btn-sm btn-outline-danger px-3 rounded-pill" onClick={handleDelete}>Delete</button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <p 
+                className="mb-0 text-muted"
+                style={{
+                  maxWidth: "800px",
+                  fontSize: "1.1rem",
+                  lineHeight: "1.8",
+                }}
+              >
+                {program.description}
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <p className="text-muted">{program.description}</p>
+        {/* GRID CONTENT */}
+        <div className="row g-4">
+          {/* REWARDS */}
+          <div className="col-md-4">
+            <div 
+              className="h-100 rounded-4 p-4"
+              style={{ background: "#ffffff", border: "1px solid #ece6da" }}
+            >
+              <h5 className="fw-bold mb-4" style={displayFont}>Rewards</h5>
+              <div className="d-flex flex-column gap-3">
+                <div className="d-flex justify-content-between border-bottom pb-2">
+                  <span className="text-muted small fw-bold text-uppercase">Critical</span>
+                  <span className="fw-bold" style={{ color: "#e85d3f" }}>₹{program.rewards?.critical}</span>
+                </div>
+                <div className="d-flex justify-content-between border-bottom pb-2">
+                  <span className="text-muted small fw-bold text-uppercase">High</span>
+                  <span className="fw-bold text-dark">₹{program.rewards?.high}</span>
+                </div>
+                <div className="d-flex justify-content-between border-bottom pb-2">
+                  <span className="text-muted small fw-bold text-uppercase">Medium</span>
+                  <span className="fw-bold text-dark">₹{program.rewards?.medium}</span>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <span className="text-muted small fw-bold text-uppercase">Low</span>
+                  <span className="fw-bold text-dark">₹{program.rewards?.low}</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      {/* GRID CONTENT */}
-      <div className="row g-4 mt-2">
+          {/* RULES */}
+          <div className="col-md-4">
+            <div 
+              className="h-100 rounded-4 p-4"
+              style={{ background: "#ffffff", border: "1px solid #ece6da" }}
+            >
+              <h5 className="fw-bold mb-4" style={displayFont}>Rules</h5>
+              <ul className="list-unstyled mb-0 d-flex flex-column gap-3">
+                {program.rules?.length > 0 ? program.rules.map((r, i) => (
+                  <li key={i} className="d-flex gap-2 text-muted small" style={{ lineHeight: "1.6" }}>
+                    <span style={{ color: "#e85d3f" }}>•</span> {r}
+                  </li>
+                )) : <li className="text-muted small italic">No specific rules listed.</li>}
+              </ul>
+            </div>
+          </div>
 
-        {/* REWARDS */}
-        <div className="col-md-4">
-          <h5>Rewards</h5>
-          <ul className="mb-0">
-            <li>Low: ₹{program.rewards?.low}</li>
-            <li>Medium: ₹{program.rewards?.medium}</li>
-            <li>High: ₹{program.rewards?.high}</li>
-            <li>Critical: ₹{program.rewards?.critical}</li>
-          </ul>
+          {/* POLICY */}
+          <div className="col-md-4">
+            <div 
+              className="h-100 rounded-4 p-4"
+              style={{ background: "#ffffff", border: "1px solid #ece6da" }}
+            >
+              <h5 className="fw-bold mb-4" style={displayFont}>Policy</h5>
+              <ul className="list-unstyled mb-0 d-flex flex-column gap-3">
+                {program.policy?.length > 0 ? program.policy.map((p, i) => (
+                  <li key={i} className="d-flex gap-2 text-muted small" style={{ lineHeight: "1.6" }}>
+                    <span style={{ color: "#111827" }}>•</span> {p}
+                  </li>
+                )) : <li className="text-muted small italic">Standard disclosure policy applies.</li>}
+              </ul>
+            </div>
+          </div>
         </div>
 
-        {/* RULES */}
-        <div className="col-md-4">
-          <h5>Rules</h5>
-          <ul className="mb-0">
-            {program.rules?.map((r, i) => (
-              <li key={i}>{r}</li>
-            ))}
-          </ul>
+        {/* ACTIONS */}
+        <div className="row mt-5">
+          <div className="col-lg-12">
+            <div className="d-flex gap-3 justify-content-center">
+              <button
+                className="btn btn-outline-dark px-5 py-3 rounded-3 fw-bold"
+                onClick={() => navigate("/programs")}
+                style={{ minWidth: "200px" }}
+              >
+                Back to Programs
+              </button>
+              <button
+                className="btn btn-dark px-5 py-3 rounded-3 fw-bold"
+                onClick={() => navigate("/scope", { state: { program } })}
+                style={{ minWidth: "200px", background: "#111827" }}
+              >
+                Explore Scopes
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* POLICY */}
-        <div className="col-md-4">
-          <h5>Policy</h5>
-          <ul className="mb-0">
-            {program.policy?.map((p, i) => (
-              <li key={i}>{p}</li>
-            ))}
-          </ul>
-        </div>
-
-      </div>
-
-      {/* ACTIONS */}
-      <div className="d-flex gap-2 mt-4">
-        <button
-          className="btn btn-outline-dark"
-          onClick={() => navigate("/programs")}
-        >
-          Back
-        </button>
-        <button
-          className="btn btn-dark"
-          onClick={() => navigate("/scope", { state: { program } })}
-        >
-          View Scopes
-        </button>
       </div>
     </div>
   );

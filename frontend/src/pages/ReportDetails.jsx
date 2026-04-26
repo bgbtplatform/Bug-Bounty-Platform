@@ -8,6 +8,11 @@ function ReportDetails() {
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const displayFont = {
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    letterSpacing: "-0.03em",
+  };
+
   useEffect(() => {
     async function fetchReport() {
       try {
@@ -22,58 +27,120 @@ function ReportDetails() {
     fetchReport();
   }, [id]);
 
-  if (loading) return <div className="p-5 text-center">Loading report details...</div>;
-  if (!report) return <div className="p-5 text-center text-danger">Report not found.</div>;
+  if (loading) return <div className="p-5 text-center fw-bold" style={displayFont}>Loading Report Details...</div>;
+  if (!report) return <div className="p-5 text-center text-danger fw-bold" style={displayFont}>Report not found.</div>;
 
   return (
-    <div className="container mt-5 mb-5">
-      <div className="card shadow-sm border-0 overflow-hidden">
-        <div className="card-header bg-dark text-white p-4 d-flex justify-content-between align-items-center">
-            <h3 className="mb-0">{report.title}</h3>
-            <span className={`badge py-2 px-3 ${report.status === 'RESOLVED' ? 'bg-success' : 'bg-info'}`}>
-                {report.status}
-            </span>
-        </div>
-        <div className="card-body p-4">
-            <div className="row g-4">
-                <div className="col-md-8">
-                    <h4>Description</h4>
-                    <pre className="bg-light p-3 rounded" style={{ whiteSpace: "pre-wrap" }}>{report.description}</pre>
+    <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
+      <div className="container" style={{ maxWidth: "1100px" }}>
 
-                    <h4 className="mt-4">Impact</h4>
-                    <p className="bg-light p-3 rounded">{report.impact}</p>
-
-                    {report.attachements && (
-                        <div className="mt-4">
-                            <h4>Attachments</h4>
-                            <div className="border rounded p-2 d-inline-block">
-                                {report.attachements.match(/\.(jpeg|jpg|gif|png)$/) ? (
-                                    <img src={report.attachements} alt="PoC" style={{ maxWidth: "100%", maxHeight: "400px" }} />
-                                ) : (
-                                    <a href={report.attachements} target="_blank" rel="noreferrer" className="btn btn-link">View Proof of Concept</a>
-                                )}
-                            </div>
-                        </div>
-                    )}
+        {/* HEADER SECTION */}
+        <div className="row g-4 align-items-center mb-5">
+          <div className="col-lg-12">
+            <div
+              className="rounded-4 p-4 p-lg-5 bg-white shadow-sm"
+              style={{ border: "1px solid #ece6da" }}
+            >
+              <div className="d-flex justify-content-between align-items-start flex-wrap gap-4 mb-4 pb-4 border-bottom">
+                <div>
+                  <span
+                    className="d-inline-block px-3 py-1 rounded-pill mb-3 fw-bold text-uppercase"
+                    style={{ background: "#e85d3f", color: "#ffffff", fontSize: "0.65rem", letterSpacing: "0.06em" }}
+                  >
+                    VULNERABILITY ADVISORY
+                  </span>
+                  <h1 className="fw-bold mb-1" style={{ ...displayFont, fontSize: "clamp(2rem, 5vw, 3rem)" }}>{report.title}</h1>
                 </div>
+                <div className="d-flex gap-2 align-items-center">
+                  <span 
+                    className={`px-4 py-2 rounded-pill fw-bold text-uppercase shadow-sm`}
+                    style={{ 
+                      background: report.status === 'RESOLVED' ? "#dcfce7" : "#f1f5f9", 
+                      color: report.status === 'RESOLVED' ? "#166534" : "#475569",
+                      fontSize: "0.75rem",
+                      letterSpacing: "0.05em"
+                    }}
+                  >
+                    {report.status}
+                  </span>
+                </div>
+              </div>
 
-                <div className="col-md-4">
-                    <div className="bg-white border rounded p-3 shadow-sm">
-                        <h5>Report Info</h5>
-                        <ul className="list-unstyled mb-0 mt-3">
-                            <li className="mb-2"><strong>Severity:</strong> <span className="text-capitalize">{report.severity}</span></li>
-                            <li className="mb-2"><strong>Submitted:</strong> {new Date(report.createdAt).toLocaleDateString()}</li>
-                            <li className="mb-2"><strong>Last Updated:</strong> {new Date(report.updatedAt).toLocaleDateString()}</li>
-                        </ul>
-                        <hr />
-                        <div className="d-grid gap-2">
-                            <button className="btn btn-outline-primary" onClick={() => navigate(`/reports/edit/${report._id}`)}>Edit Report</button>
-                            <button className="btn btn-outline-dark" onClick={() => navigate("/my-reports")}>Back to Dashboard</button>
-                        </div>
+              <div className="row g-5">
+                <div className="col-lg-8">
+                  <h5 className="fw-bold mb-4" style={displayFont}>Detailed Findings</h5>
+                  <div 
+                    className="p-4 rounded-4 mb-5 shadow-sm" 
+                    style={{ background: "#f9fafb", border: "1px solid #f1f5f9", whiteSpace: "pre-wrap", fontFamily: "monospace", fontSize: "0.95rem", color: "#1e293b" }}
+                  >
+                    {report.description}
+                  </div>
+
+                  <h5 className="fw-bold mb-4" style={displayFont}>Impact Analysis</h5>
+                  <div className="p-4 rounded-4 bg-white border mb-5 shadow-sm" style={{ lineHeight: "1.8", color: "#475569" }}>
+                    {report.impact}
+                  </div>
+
+                  {report.attachements && (
+                    <div className="mt-5">
+                      <h5 className="fw-bold mb-4" style={displayFont}>Proof of Concept</h5>
+                      <div className="p-3 border rounded-4 bg-white shadow-sm d-inline-block overflow-hidden">
+                        {report.attachements.match(/\.(jpeg|jpg|gif|png)$/) ? (
+                          <img src={report.attachements} alt="PoC" style={{ maxWidth: "100%", maxHeight: "500px", display: "block" }} />
+                        ) : (
+                          <div className="p-4 text-center">
+                            <a href={report.attachements} target="_blank" rel="noreferrer" className="btn btn-dark px-4 py-2 rounded-pill fw-bold">View Evidence File</a>
+                          </div>
+                        )}
+                      </div>
                     </div>
+                  )}
                 </div>
+
+                <div className="col-lg-4">
+                  <div 
+                    className="rounded-4 p-4 sticky-top bg-white border shadow-sm"
+                    style={{ top: "2rem" }}
+                  >
+                    <h6 className="fw-bold text-uppercase text-muted mb-4 pb-2 border-bottom" style={{ fontSize: "0.7rem", letterSpacing: "0.05em" }}>Submission Info</h6>
+                    
+                    <div className="mb-4">
+                      <label className="d-block small fw-bold text-muted text-uppercase mb-1" style={{ fontSize: "0.6rem" }}>Assessed Severity</label>
+                      <span className={`fw-bold text-capitalize fs-5 ${report.severity === 'CRITICAL' ? 'text-danger' : 'text-dark'}`}>{report.severity}</span>
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="d-block small fw-bold text-muted text-uppercase mb-1" style={{ fontSize: "0.6rem" }}>Reported Date</label>
+                      <span className="fw-semibold">{new Date(report.createdAt).toLocaleDateString()}</span>
+                    </div>
+
+                    <div className="mb-5">
+                      <label className="d-block small fw-bold text-muted text-uppercase mb-1" style={{ fontSize: "0.6rem" }}>Last Updated</label>
+                      <span className="fw-semibold text-muted">{new Date(report.updatedAt).toLocaleDateString()}</span>
+                    </div>
+
+                    <div className="d-grid gap-3 pt-3 border-top">
+                      <button 
+                        className="btn btn-dark py-3 rounded-3 fw-bold" 
+                        style={{ background: "#111827" }}
+                        onClick={() => navigate(`/reports/edit/${report._id}`)}
+                      >
+                        Edit Findings
+                      </button>
+                      <button 
+                        className="btn btn-outline-dark py-3 rounded-3 fw-bold" 
+                        onClick={() => navigate("/my-reports")}
+                      >
+                        Back to My Reports
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+
       </div>
     </div>
   );

@@ -13,6 +13,11 @@ function EditReport() {
     severity: "NONE"
   });
 
+  const displayFont = {
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    letterSpacing: "-0.03em",
+  };
+
   useEffect(() => {
     async function fetchReport() {
       try {
@@ -47,40 +52,85 @@ function EditReport() {
     }
   }
 
-  if (loading) return <div className="p-5 text-center">Loading...</div>;
+  if (loading) return <div className="p-5 text-center fw-bold" style={displayFont}>Loading Report...</div>;
 
   return (
-    <div className="container mt-5 mb-5">
-      <div className="card shadow p-4 mx-auto" style={{ maxWidth: "800px" }}>
-        <h3>Edit Your Report</h3>
-        <hr />
-        <form onSubmit={handleUpdate}>
-          <div className="mb-3">
-            <label className="form-label">Report Title</label>
-            <input type="text" className="form-control" value={formData.title} required onChange={e => setFormData({ ...formData, title: e.target.value })} />
+    <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
+      <div className="container">
+        <div 
+          className="rounded-4 p-4 p-lg-5 mx-auto bg-white shadow-sm" 
+          style={{ maxWidth: "850px", border: "1px solid #ece6da" }}
+        >
+          <div className="text-center mb-5">
+            <span
+              className="d-inline-block px-3 py-1 rounded-pill mb-3 fw-bold text-uppercase"
+              style={{ background: "#e85d3f", color: "#ffffff", fontSize: "0.65rem", letterSpacing: "0.06em" }}
+            >
+              VULNERABILITY REPORT
+            </span>
+            <h1 className="fw-bold mb-3" style={{ ...displayFont, fontSize: "clamp(2rem, 4vw, 3rem)" }}>Edit Submission</h1>
+            <p className="text-muted">Refine your findings or provide additional impact details.</p>
           </div>
-          <div className="mb-3">
-            <label className="form-label">Description / Steps to Reproduce</label>
-            <textarea className="form-control" rows="6" value={formData.description} required onChange={e => setFormData({ ...formData, description: e.target.value })}></textarea>
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Impact</label>
-            <textarea className="form-control" rows="3" value={formData.impact} required onChange={e => setFormData({ ...formData, impact: e.target.value })}></textarea>
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Estimated Severity</label>
-            <select className="form-select" value={formData.severity} onChange={e => setFormData({ ...formData, severity: e.target.value })}>
-              <option value="NONE">None</option>
-              <option value="LOW">Low</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="CRITICAL">Critical</option>
-            </select>
-          </div>
-          <div className="mt-4 d-flex gap-2">
-            <button type="submit" className="btn btn-primary px-4">Update Report</button>
-            <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>Cancel</button>
-          </div>
-        </form>
+
+          <form onSubmit={handleUpdate}>
+            <div className="row g-4">
+              <div className="col-12">
+                <label className="form-label small fw-bold text-uppercase text-muted">Report Title</label>
+                <input 
+                  type="text" 
+                  className="form-control p-3 rounded-3" 
+                  style={{ background: "#f9fafb" }}
+                  value={formData.title} 
+                  required 
+                  onChange={e => setFormData({ ...formData, title: e.target.value })} 
+                />
+              </div>
+              <div className="col-12">
+                <label className="form-label small fw-bold text-uppercase text-muted">Technical Description</label>
+                <textarea 
+                  className="form-control p-3 rounded-3" 
+                  style={{ background: "#f9fafb", fontFamily: "monospace", fontSize: "0.9rem" }}
+                  rows="8" 
+                  value={formData.description} 
+                  required 
+                  onChange={e => setFormData({ ...formData, description: e.target.value })}
+                ></textarea>
+                <div className="form-text small">Include steps to reproduce, environment info, and code snippets.</div>
+              </div>
+              <div className="col-12">
+                <label className="form-label small fw-bold text-uppercase text-muted">Impact Analysis</label>
+                <textarea 
+                  className="form-control p-3 rounded-3" 
+                  style={{ background: "#f9fafb" }}
+                  rows="4" 
+                  value={formData.impact} 
+                  required 
+                  onChange={e => setFormData({ ...formData, impact: e.target.value })}
+                ></textarea>
+              </div>
+              <div className="col-md-6">
+                <label className="form-label small fw-bold text-uppercase text-muted">Reported Severity</label>
+                <select 
+                  className="form-select p-3 rounded-3" 
+                  style={{ background: "#f9fafb" }}
+                  value={formData.severity} 
+                  onChange={e => setFormData({ ...formData, severity: e.target.value })}
+                >
+                  <option value="NONE">None / Informational</option>
+                  <option value="LOW">Low Severity</option>
+                  <option value="MEDIUM">Medium Severity</option>
+                  <option value="HIGH">High Severity</option>
+                  <option value="CRITICAL">Critical Severity</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="mt-5 pt-4 border-top d-flex flex-wrap gap-3">
+              <button type="submit" className="btn btn-dark px-5 py-3 rounded-3 fw-bold" style={{ background: "#111827" }}>Save Changes</button>
+              <button type="button" className="btn btn-outline-dark px-5 py-3 rounded-3 fw-bold" onClick={() => navigate(-1)}>Cancel</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

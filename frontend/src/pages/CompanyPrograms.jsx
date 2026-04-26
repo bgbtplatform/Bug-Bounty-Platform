@@ -7,6 +7,11 @@ function CompanyPrograms() {
   const navigate = useNavigate();
   const [programs, setPrograms] = useState([]);
 
+  const displayFont = {
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    letterSpacing: "-0.03em",
+  };
+
   async function getPrograms() {
     try {
       let res = await axiosClient.get(`/program/company/${id}`);
@@ -23,51 +28,100 @@ function CompanyPrograms() {
   }, [id]);
 
   return (
-    <div className="container mt-4">
-      {/* HEADER */}
-      <div className="mb-4">
-        <h2 className="fw-bold">Company Programs</h2>
-        <p className="text-muted">
-          Active and past bug bounty programs for this company.
-        </p>
-      </div>
-
-      {/* PROGRAM LIST */}
-      {programs.length > 0 ? (
-        <div className="d-flex flex-column gap-3">
-          {programs.map((p) => (
-            <div key={p._id} className="border rounded p-3 d-flex justify-content-between align-items-center">
-
-              {/* LEFT: BASIC INFO */}
-              <div>
-                <p className="fw-semibold mb-1">{p.title}</p>
-                <small className="text-muted">
-                  Status: {p.status} &nbsp;·&nbsp; Critical Reward: ₹{p.rewards?.critical || "N/A"}
-                </small>
-              </div>
-
-              {/* RIGHT: BUTTON */}
-              <button
-                className="btn btn-dark btn-sm"
-                onClick={() => navigate("/program-details", { state: { program: p } })}
+    <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
+      <div className="container">
+        
+        {/* HEADER */}
+        <div className="row g-4 align-items-center mb-5 text-center text-lg-start">
+          <div className="col-lg-8 mx-auto">
+            <div
+              className="rounded-4 p-4 p-lg-5 bg-white border shadow-sm"
+            >
+              <span
+                className="d-inline-block px-3 py-1 rounded-pill mb-4 fw-bold text-uppercase"
+                style={{ background: "#e85d3f", color: "#ffffff", fontSize: "0.65rem", letterSpacing: "0.06em" }}
               >
-                View Details
-              </button>
-
+                ACTIVE PROGRAMS
+              </span>
+              <h1 className="fw-bold mb-3" style={{ ...displayFont, fontSize: "clamp(2rem, 4vw, 3rem)" }}>Organization Programs</h1>
+              <p className="text-muted mb-0" style={{ fontSize: "1.1rem" }}>
+                Browse the complete list of bug bounty initiatives currently offered by this organization.
+              </p>
             </div>
-          ))}
+          </div>
         </div>
-      ) : (
-        <p className="text-muted">No programs available for this company.</p>
-      )}
 
-      {/* BACK BUTTON */}
-      <button
-        className="btn btn-outline-dark mt-4"
-        onClick={() => navigate(`/company/${id}`)}
-      >
-        Back to Company
-      </button>
+        {/* PROGRAM LIST */}
+        <div className="row g-3 justify-content-center">
+          {programs.length > 0 ? (
+            programs.map((p) => (
+              <div key={p._id} className="col-lg-8">
+                <div 
+                  className="rounded-4 p-4 d-flex flex-wrap justify-content-between align-items-center bg-white shadow-sm"
+                  style={{ border: "1px solid #ece6da" }}
+                >
+                  <div className="d-flex align-items-center gap-4">
+                    <div 
+                      className="rounded-3 p-3 d-flex align-items-center justify-content-center fw-bold"
+                      style={{ background: "#f8f5ef", color: "#111827", width: "50px", height: "50px", border: "1px solid #ece6da" }}
+                    >
+                      {p.title[0]}
+                    </div>
+                    <div>
+                      <p className="fw-bold mb-1 fs-5" style={displayFont}>{p.title}</p>
+                      <div className="d-flex gap-2 flex-wrap">
+                        <span 
+                          className="px-2 py-1 rounded-pill small fw-bold text-uppercase"
+                          style={{ 
+                            background: p.status === 'ACTIVE' ? "#dcfce7" : "#f1f5f9", 
+                            color: p.status === 'ACTIVE' ? "#166534" : "#475569",
+                            fontSize: "0.6rem",
+                            letterSpacing: "0.05em"
+                          }}
+                        >
+                          {p.status}
+                        </span>
+                        <span 
+                          className="px-2 py-1 rounded-pill small fw-bold text-uppercase"
+                          style={{ background: "#fef3c7", color: "#92400e", fontSize: "0.6rem", letterSpacing: "0.05em" }}
+                        >
+                          Critical: ₹{p.rewards?.critical || "N/A"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    className="btn btn-dark px-4 py-2 rounded-pill fw-bold"
+                    style={{ background: "#111827" }}
+                    onClick={() => navigate("/program-details", { state: { program: p } })}
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-lg-8">
+              <div className="text-center py-5 rounded-4 bg-white border" style={{ borderStyle: "dashed !important" }}>
+                <p className="text-muted mb-0">This company hasn't launched any public programs yet.</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* BACK BUTTON */}
+        <div className="mt-5 text-center">
+          <button
+            className="btn btn-link text-decoration-none fw-bold"
+            style={{ color: "#e85d3f" }}
+            onClick={() => navigate(`/company/${id}`)}
+          >
+            &larr; Back to Company Profile
+          </button>
+        </div>
+
+      </div>
     </div>
   );
 }
