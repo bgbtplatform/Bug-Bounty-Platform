@@ -4,6 +4,7 @@ import {
     allReports,
     getReportById,
     updateReport,
+    updateReportAttachments,
     deleteReport,
     getMyReports
 } from "../controllers/report.controller.js";
@@ -25,6 +26,7 @@ router.get("/", auth, allReports);
 // Specific report management
 router.get("/:id", auth, getReportById);
 router.put("/:id", auth, updateReport);
+router.put("/:id/attachments", auth, upload.single("attachements"), updateReportAttachments);
 router.delete("/:id", auth, deleteReport);
 
 export default router;

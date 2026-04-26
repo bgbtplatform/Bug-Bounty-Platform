@@ -89,11 +89,55 @@ async function getMyReports(req, res) {
     }
 }
 
+async function updateReportAttachments(req, res) {
+    try {
+        let { id } = req.params;
+
+        if (!req.file) {
+            return res.status(400).send({
+                success: false,
+                message: "No file uploaded",
+            });
+        }
+
+        const report = await Report.findById(id);
+        if (!report) return res.status(404).send({ success: false, message: "Report not found" });
+        
+        // Verify ownership
+        if (report.hunterId.toString() !== req.user.id) {
+            return res.status(403).send({ success: false, message: "Unauthorized" });
+        }
+
+        let updatedReport = await Report.findOneAndUpdate(
+            { _id: id },
+            {
+                attachements: `http://localhost:5000/uploads/${req.file.filename}`,
+            },
+            { new: true }
+        );
+
+        res.status(200).send({
+            success: true,
+            message: "Report attachments updated successfully",
+            data: updatedReport,
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error updating report attachments",
+            error: error.message,
+        });
+    }
+}
+
 export {
     addReport,
     allReports,
     getReportById,
     updateReport,
+    updateReportAttachments,
     deleteReport,
     getMyReports
 }

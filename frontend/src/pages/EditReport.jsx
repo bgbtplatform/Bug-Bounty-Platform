@@ -10,8 +10,10 @@ function EditReport() {
     title: "",
     description: "",
     impact: "",
-    severity: "NONE"
+    severity: "NONE",
+    attachements: ""
   });
+  const [newFile, setNewFile] = useState(null);
 
   const displayFont = {
     fontFamily: 'Georgia, "Times New Roman", serif',
@@ -29,6 +31,7 @@ function EditReport() {
             description: data.description || "",
             impact: data.impact || "",
             severity: data.severity || "NONE",
+            attachements: data.attachements || ""
           });
         }
         setLoading(false);
@@ -43,12 +46,28 @@ function EditReport() {
   async function handleUpdate(e) {
     e.preventDefault();
     try {
-      await axiosClient.put(`/reports/${id}`, formData);
+      // 1. Update text fields
+      await axiosClient.put(`/reports/${id}`, {
+        title: formData.title,
+        description: formData.description,
+        impact: formData.impact,
+        severity: formData.severity
+      });
+
+      // 2. Update file if selected
+      if (newFile) {
+        const fileData = new FormData();
+        fileData.append("attachements", newFile);
+        await axiosClient.put(`/reports/${id}/attachments`, fileData, {
+          headers: { "Content-Type": "multipart/form-data" }
+        });
+      }
+
       alert("Report updated successfully");
       navigate(`/reports/${id}`);
     } catch (error) {
       console.error(error);
-      alert("Failed to update report");
+      alert(error.response?.data?.message || "Failed to update report");
     }
   }
 
@@ -122,6 +141,21 @@ function EditReport() {
                   <option value="HIGH">High Severity</option>
                   <option value="CRITICAL">Critical Severity</option>
                 </select>
+              </div>
+              <div className="col-md-6">
+                <label className="form-label small fw-bold text-uppercase text-muted">Update Attachments (PDF/Images)</label>
+                <input 
+                  type="file" 
+                  className="form-control p-3 rounded-3" 
+                  style={{ background: "#f9fafb" }}
+                  onChange={e => setNewFile(e.target.files[0])} 
+                />
+                {formData.attachements && (
+                  <div className="mt-2 small">
+                    <span className="text-muted">Current file: </span>
+                    <a href={formData.attachements} target="_blank" rel="noreferrer" className="text-decoration-none fw-bold" style={{ color: "#e85d3f" }}>View Evidence</a>
+                  </div>
+                )}
               </div>
             </div>
 
