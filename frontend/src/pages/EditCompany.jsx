@@ -13,7 +13,9 @@ function EditCompany() {
     description: "",
     programType: "public",
     bountyRange: { min: 0, max: 0 },
-    severityRewards: { low: 0, medium: 0, high: 0, critical: 0 }
+    severityRewards: { low: 0, medium: 0, high: 0, critical: 0 },
+    responseEfficiency: 0,
+    assets: ""
   });
 
   const displayFont = {
@@ -33,7 +35,9 @@ function EditCompany() {
             description: data.description || "",
             programType: data.programType || "public",
             bountyRange: data.bountyRange || { min: 0, max: 0 },
-            severityRewards: data.severityRewards || { low: 0, medium: 0, high: 0, critical: 0 }
+            severityRewards: data.severityRewards || { low: 0, medium: 0, high: 0, critical: 0 },
+            responseEfficiency: data.responseEfficiency || 0,
+            assets: Array.isArray(data.assets) ? data.assets.join(", ") : ""
           });
         }
         setLoading(false);
@@ -56,6 +60,8 @@ function EditCompany() {
       data.append("programType", formData.programType);
       data.append("bountyRange", JSON.stringify(formData.bountyRange));
       data.append("severityRewards", JSON.stringify(formData.severityRewards));
+      data.append("responseEfficiency", formData.responseEfficiency);
+      data.append("assets", JSON.stringify(formData.assets.split(",").map(a => a.trim()).filter(a => a !== "")));
       if (logoFile) {
         data.append("logo", logoFile);
       }
@@ -194,6 +200,31 @@ function EditCompany() {
                     <input type="number" className="form-control p-2 rounded-3" value={formData.severityRewards.critical} onChange={(e) => setFormData({ ...formData, severityRewards: { ...formData.severityRewards, critical: e.target.value } })} />
                   </div>
                 </div>
+              </div>
+
+              <div className="col-md-6 mt-4 pt-2 border-top">
+                <label className="form-label small fw-bold text-uppercase text-muted">Response Efficiency (%)</label>
+                <input
+                  type="number"
+                  className="form-control p-3 rounded-3"
+                  style={{ background: "#f9fafb" }}
+                  min="0"
+                  max="100"
+                  value={formData.responseEfficiency}
+                  onChange={(e) => setFormData({ ...formData, responseEfficiency: e.target.value })}
+                />
+              </div>
+
+              <div className="col-md-6 mt-4 pt-2 border-top">
+                <label className="form-label small fw-bold text-uppercase text-muted">Eligible Assets (Comma separated)</label>
+                <input
+                  type="text"
+                  className="form-control p-3 rounded-3"
+                  style={{ background: "#f9fafb" }}
+                  placeholder="example.com, api.example.com"
+                  value={formData.assets}
+                  onChange={(e) => setFormData({ ...formData, assets: e.target.value })}
+                />
               </div>
             </div>
 

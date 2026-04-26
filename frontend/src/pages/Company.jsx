@@ -13,7 +13,9 @@ function Company() {
     description: "",
     programType: "public",
     bountyRange: { min: 0, max: 0 },
-    severityRewards: { low: 0, medium: 0, high: 0, critical: 0 }
+    severityRewards: { low: 0, medium: 0, high: 0, critical: 0 },
+    responseEfficiency: 0,
+    assets: ""
   });
 
   const { user } = useAuth();
@@ -45,6 +47,8 @@ function Company() {
       data.append("programType", formData.programType);
       data.append("bountyRange", JSON.stringify(formData.bountyRange));
       data.append("severityRewards", JSON.stringify(formData.severityRewards));
+      data.append("responseEfficiency", formData.responseEfficiency);
+      data.append("assets", JSON.stringify(formData.assets.split(",").map(a => a.trim()).filter(a => a !== "")));
       if (logoFile) {
         data.append("logo", logoFile);
       }
@@ -210,6 +214,15 @@ function Company() {
                           </div>
                         </div>
                       </div>
+                      <div className="col-md-6 mt-4 pt-2 border-top">
+                        <label className="form-label small fw-bold text-uppercase text-muted">Response Efficiency (%)</label>
+                        <input type="number" className="form-control p-3 rounded-3" style={{ background: "#f9fafb" }} min="0" max="100" onChange={e => setFormData({ ...formData, responseEfficiency: e.target.value })} />
+                      </div>
+
+                      <div className="col-md-6 mt-4 pt-2 border-top">
+                        <label className="form-label small fw-bold text-uppercase text-muted">Eligible Assets (Comma separated)</label>
+                        <input type="text" className="form-control p-3 rounded-3" style={{ background: "#f9fafb" }} placeholder="example.com, api.example.com" onChange={e => setFormData({ ...formData, assets: e.target.value })} />
+                      </div>
                     </div>
                   </div>
                   <div className="modal-footer border-0 p-4 pt-0">
@@ -263,10 +276,21 @@ function Company() {
                   </div>
                 </div>
 
-                <p className="text-muted small flex-grow-1 mb-4" style={{ lineHeight: "1.7" }}>
+                <p className="text-muted small flex-grow-1 mb-3" style={{ lineHeight: "1.7" }}>
                   {p.description?.slice(0, 150) || "Explore this organization's security initiatives and bug bounty opportunities."}
                   {p.description?.length > 150 ? "..." : ""}
                 </p>
+
+                <div className="mb-4 d-flex justify-content-between align-items-center p-2 rounded-3" style={{ background: "#f9fafb", border: "1px solid #f1f5f9" }}>
+                  <div className="text-center flex-grow-1 border-end">
+                    <span className="d-block small text-muted text-uppercase fw-bold" style={{ fontSize: "0.55rem" }}>Min Bounty</span>
+                    <span className="fw-bold text-dark">₹{p.bountyRange?.min || 0}</span>
+                  </div>
+                  <div className="text-center flex-grow-1">
+                    <span className="d-block small text-muted text-uppercase fw-bold" style={{ fontSize: "0.55rem" }}>Max Bounty</span>
+                    <span className="fw-bold" style={{ color: "#e85d3f" }}>₹{p.bountyRange?.max || 0}</span>
+                  </div>
+                </div>
 
                 <button
                   className="btn py-2 fw-bold w-100 rounded-3 mt-auto"

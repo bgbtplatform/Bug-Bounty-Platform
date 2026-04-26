@@ -12,7 +12,9 @@ function Program() {
     description: "",
     companyId: "",
     rewards: { low: 0, medium: 0, high: 0, critical: 0 },
-    status: "ACTIVE"
+    status: "ACTIVE",
+    rules: "",
+    policy: ""
   });
 
   const { user } = useAuth();
@@ -48,8 +50,22 @@ function Program() {
   async function handleAddProgram(e) {
     e.preventDefault();
     try {
-        await axiosClient.post("/program", formData);
+        const payload = {
+            ...formData,
+            rules: formData.rules.split("\n").map(r => r.trim()).filter(r => r !== ""),
+            policy: formData.policy.split("\n").map(p => p.trim()).filter(p => p !== "")
+        };
+        await axiosClient.post("/program", payload);
         setShowForm(false);
+        setFormData({
+            title: "",
+            description: "",
+            companyId: "",
+            rewards: { low: 0, medium: 0, high: 0, critical: 0 },
+            status: "ACTIVE",
+            rules: "",
+            policy: ""
+        });
         getPrograms();
     } catch (error) {
         console.error(error);
@@ -192,6 +208,14 @@ function Program() {
                                               <input type="number" className="form-control p-2 rounded-3" onChange={e => setFormData({ ...formData, rewards: { ...formData.rewards, critical: e.target.value } })} />
                                           </div>
                                         </div>
+                                    </div>
+                                    <div className="col-12 mt-4 pt-2 border-top">
+                                        <label className="form-label small fw-bold text-uppercase text-muted">Program Rules (One per line)</label>
+                                        <textarea className="form-control p-3 rounded-3" style={{ background: "#f9fafb" }} rows="3" placeholder="No automated scanning&#10;Respect privacy" onChange={e => setFormData({ ...formData, rules: e.target.value })}></textarea>
+                                    </div>
+                                    <div className="col-12 mt-2">
+                                        <label className="form-label small fw-bold text-uppercase text-muted">Program Policy (One per line)</label>
+                                        <textarea className="form-control p-3 rounded-3" style={{ background: "#f9fafb" }} rows="3" placeholder="Safe Harbor policy&#10;Response within 24h" onChange={e => setFormData({ ...formData, policy: e.target.value })}></textarea>
                                     </div>
                                 </div>
                             </div>

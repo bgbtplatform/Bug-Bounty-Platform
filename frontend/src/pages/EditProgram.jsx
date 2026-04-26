@@ -10,7 +10,9 @@ function EditProgram() {
     title: "",
     description: "",
     status: "ACTIVE",
-    rewards: { low: 0, medium: 0, high: 0, critical: 0 }
+    rewards: { low: 0, medium: 0, high: 0, critical: 0 },
+    rules: "",
+    policy: ""
   });
 
   const displayFont = {
@@ -28,7 +30,9 @@ function EditProgram() {
             title: data.title || "",
             description: data.description || "",
             status: data.status || "ACTIVE",
-            rewards: data.rewards || { low: 0, medium: 0, high: 0, critical: 0 }
+            rewards: data.rewards || { low: 0, medium: 0, high: 0, critical: 0 },
+            rules: Array.isArray(data.rules) ? data.rules.join("\n") : "",
+            policy: Array.isArray(data.policy) ? data.policy.join("\n") : ""
           });
         }
         setLoading(false);
@@ -43,7 +47,12 @@ function EditProgram() {
   async function handleUpdate(e) {
     e.preventDefault();
     try {
-      await axiosClient.put(`/program/${id}`, formData);
+      const payload = {
+        ...formData,
+        rules: formData.rules.split("\n").map(r => r.trim()).filter(r => r !== ""),
+        policy: formData.policy.split("\n").map(p => p.trim()).filter(p => p !== "")
+      };
+      await axiosClient.put(`/program/${id}`, payload);
       alert("Program updated successfully");
       navigate("/programs");
     } catch (error) {
@@ -109,7 +118,6 @@ function EditProgram() {
                   <option value="CLOSED">Closed</option>
                 </select>
               </div>
-
               <div className="col-12 mt-5 pt-3 border-top">
                 <h5 className="fw-bold mb-4" style={displayFont}>Reward Matrix (₹)</h5>
                 <div className="row g-3">
@@ -130,6 +138,30 @@ function EditProgram() {
                     <input type="number" className="form-control p-2 rounded-3" value={formData.rewards.critical} onChange={(e) => setFormData({ ...formData, rewards: { ...formData.rewards, critical: e.target.value } })} />
                   </div>
                 </div>
+              </div>
+
+              <div className="col-12 mt-4 pt-2 border-top">
+                <label className="form-label small fw-bold text-uppercase text-muted">Program Rules (One per line)</label>
+                <textarea
+                  className="form-control p-3 rounded-3"
+                  style={{ background: "#f9fafb" }}
+                  rows="4"
+                  value={formData.rules}
+                  onChange={(e) => setFormData({ ...formData, rules: e.target.value })}
+                  placeholder="Example:&#10;No automated testing&#10;Stay in scope"
+                ></textarea>
+              </div>
+
+              <div className="col-12 mt-2">
+                <label className="form-label small fw-bold text-uppercase text-muted">Program Policy (One per line)</label>
+                <textarea
+                  className="form-control p-3 rounded-3"
+                  style={{ background: "#f9fafb" }}
+                  rows="4"
+                  value={formData.policy}
+                  onChange={(e) => setFormData({ ...formData, policy: e.target.value })}
+                  placeholder="Example:&#10;Safe Harbor&#10;Response within 48 hours"
+                ></textarea>
               </div>
             </div>
 

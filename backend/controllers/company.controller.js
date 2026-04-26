@@ -10,6 +10,17 @@ async function createCompany(req, res) {
 
     newCompany.owner = req.user.id; // From auth middleware
 
+    // Multer sends everything as strings, so we must parse nested objects
+    if (typeof newCompany.bountyRange === 'string') {
+      newCompany.bountyRange = JSON.parse(newCompany.bountyRange);
+    }
+    if (typeof newCompany.severityRewards === 'string') {
+      newCompany.severityRewards = JSON.parse(newCompany.severityRewards);
+    }
+    if (typeof newCompany.assets === 'string') {
+      newCompany.assets = JSON.parse(newCompany.assets);
+    }
+
     if (!newCompany.name) {
       return res.status(400).send({
         success: false,
@@ -168,6 +179,9 @@ async function updateCompanyDetails(req, res) {
     }
     if (typeof updateData.severityRewards === 'string') {
       updateData.severityRewards = JSON.parse(updateData.severityRewards);
+    }
+    if (typeof updateData.assets === 'string') {
+      updateData.assets = JSON.parse(updateData.assets);
     }
 
     const updatedCompany = await Company.findOneAndUpdate(
