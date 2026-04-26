@@ -34,7 +34,7 @@ function Navbar() {
             height="40"
             className="me-2 rounded-circle"
           />
-          BugSeek
+          BugNest
         </Link>
 
         {/* Toggle button (mobile) */}
