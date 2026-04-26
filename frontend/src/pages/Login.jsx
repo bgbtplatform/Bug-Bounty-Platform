@@ -36,41 +36,101 @@ function Login() {
         }
     }
 
+    const displayFont = {
+        fontFamily: 'Georgia, "Times New Roman", serif',
+        letterSpacing: "-0.03em",
+    };
+
     return (
-        <div className="row justify-content-center mt-5">
-            <div className="col-md-6 col-lg-5">
-                <div className="card shadow-sm p-4 glass-card">
-                    <h3 className="text-center mb-4">Login</h3>
-                    {error && <div className="alert alert-danger">{message}</div>}
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-3">
-                            <label className="form-label">Email</label>
-                            <input
-                                type="email"
-                                name="email"
-                                className="form-control"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                            />
+        <div className="py-5" style={{ background: "#f8f5ef", minHeight: "calc(100vh - 100px)" }}>
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-md-6 col-lg-5">
+                        <div 
+                            className="rounded-4 p-4 p-lg-5"
+                            style={{ 
+                                background: "#ffffff", 
+                                border: "1px solid #ece6da",
+                                boxShadow: "0 10px 30px rgba(0,0,0,0.05)"
+                            }}
+                        >
+                            <span
+                                className="d-inline-block px-3 py-2 rounded-pill mb-4"
+                                style={{
+                                    background: "#111827",
+                                    color: "#ffffff",
+                                    fontSize: "0.75rem",
+                                    letterSpacing: "0.06em",
+                                    fontWeight: "600"
+                                }}
+                            >
+                                WELCOME BACK
+                            </span>
+
+                            <h2 
+                                className="fw-bold mb-4"
+                                style={{ 
+                                    ...displayFont,
+                                    fontSize: "clamp(2rem, 4vw, 2.8rem)",
+                                    color: "#111827" 
+                                }}
+                            >
+                                Login to BugSeek
+                            </h2>
+
+                            {error && <div className="alert alert-danger rounded-3 small mb-4">{message}</div>}
+
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-4">
+                                    <label 
+                                        className="form-label small fw-semibold text-uppercase"
+                                        style={{ color: "#6b7280", letterSpacing: "0.05em" }}
+                                    >
+                                        Email Address
+                                    </label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        className="form-control rounded-3 p-3"
+                                        style={{ background: "#f9fafb", border: "1px solid #e5e7eb" }}
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label 
+                                        className="form-label small fw-semibold text-uppercase"
+                                        style={{ color: "#6b7280", letterSpacing: "0.05em" }}
+                                    >
+                                        Password
+                                    </label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        className="form-control rounded-3 p-3"
+                                        style={{ background: "#f9fafb", border: "1px solid #e5e7eb" }}
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <button 
+                                    type="submit" 
+                                    className="btn w-100 py-3 mt-2 rounded-3 fw-bold" 
+                                    style={{ background: "#111827", color: "#ffffff" }}
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? 'Logging in...' : 'Login'}
+                                </button>
+                            </form>
+                            
+                            <div className="mt-4 pt-4 border-top text-center">
+                                <p className="text-muted small mb-0">
+                                    Don't have an account? <Link to="/signup" className="fw-bold" style={{ color: "#e85d3f", textDecoration: "none" }}>Sign up</Link>
+                                </p>
+                            </div>
                         </div>
-                        <div className="mb-3">
-                            <label className="form-label">Password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                className="form-control"
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary w-100" disabled={isSubmitting}>
-                            {isSubmitting ? 'Logging in...' : 'Login'}
-                        </button>
-                    </form>
-                    <div className="mt-3 text-center">
-                        <Link to="/signup">Don't have an account? Sign up</Link>
                     </div>
                 </div>
             </div>

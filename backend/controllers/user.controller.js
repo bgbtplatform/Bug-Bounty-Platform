@@ -194,12 +194,12 @@ async function loginUser(req, res) {
 
         let user = await User.findOne({ email: email });
         if (!user) {
-            return res.status(404).send({ message: "Invalid Email" });
+            return res.status(404).send({ message: "Invalid Credentials" });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(401).send({ message: "Invalid Password" });
+            return res.status(401).send({ message: "Invalid Credentials" });
         }
 
         let token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: "1d" });
