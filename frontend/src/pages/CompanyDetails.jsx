@@ -179,7 +179,7 @@ function CompanyDetails() {
           {/* RIGHT SIDEBAR / ACTIONS */}
           <div className="col-lg-4">
             <div 
-              className="rounded-4 p-4 h-100 d-flex flex-column gap-3 shadow-sm sticky-top"
+              className="rounded-4 p-4 h-100 d-flex flex-column gap-3 shadow-sm"
               style={{ background: "#111827", color: "#ffffff", maxHeight: "400px", top: "2rem" }}
             >
               <h4 className="fw-bold mb-3" style={displayFont}>Quick Actions</h4>

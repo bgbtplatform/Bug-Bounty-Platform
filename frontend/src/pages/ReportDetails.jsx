@@ -99,7 +99,7 @@ function ReportDetails() {
 
                 <div className="col-lg-4">
                   <div 
-                    className="rounded-4 p-4 sticky-top bg-white border shadow-sm"
+                    className="rounded-4 p-4 bg-white border shadow-sm"
                     style={{ top: "2rem" }}
                   >
                     <h6 className="fw-bold text-uppercase text-muted mb-4 pb-2 border-bottom" style={{ fontSize: "0.7rem", letterSpacing: "0.05em" }}>Submission Info</h6>

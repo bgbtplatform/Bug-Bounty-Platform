@@ -8,26 +8,26 @@ function About() {
     letterSpacing: "-0.03em",
   };
 
-  const developerCards = [
-    {
-      name: "Amritanshu Gupta",
-      role: "Full Stack Developer",
-      text: "Focused on building clean user interfaces that make bug bounty workflows easier to understand and use.",
-      img: amritImg,
-    },
-    {
-      name: "Snehlata Kumari",
-      role: "Backend Developer",
-      text: "Worked on the platform logic and data flow to support program listings, company details, and reporting features.",
-      img: snehlataImg,
-    },
-    {
-      name: "Raja Vishwkarma",
-      role: "Did Nothing",
-      text: "Helped connect the platform experience end to end so researchers and companies can interact in a smoother way.",
-      img: rajImg,
-    },
-  ];
+const developerCards = [
+  {
+    name: "Amritanshu Gupta",
+    role: "Full Stack Developer",
+    text: "Worked on backend and frontend development, integrated key features, handled debugging.",
+    img: amritImg,
+  },
+  {
+    name: "Snehlata Kumari",
+    role: "Backend Developer",
+    text: "Contributed to backend development, worked on frontend forms, assisted with testing and QA, and helped identify and fix bugs across the website.",
+    img: snehlataImg,
+  },
+  {
+    name: "Raja Vishwkarma",
+    role: "UI/UX Designer",
+    text: "Designed and styled major frontend pages, contributed to backend tasks, and worked on improving user experience and interface consistency.",
+    img: rajImg,
+  },
+];
 
   const statCards = [
     { label: "Focus", value: "Responsible Disclosure" },
@@ -233,7 +233,7 @@ function About() {
           {developerCards.map((developer) => (
             <div className="col-md-4" key={developer.name}>
               <div
-                className="h-100 rounded-4 p-4"
+                className="h-100 rounded-4 p-4 d-flex flex-column"
                 style={{
                   background: "#ffffff",
                   border: "1px solid #ece6da",
@@ -258,6 +258,22 @@ function About() {
                 <p className="text-muted mb-0" style={{ lineHeight: "1.8" }}>
                   {developer.text}
                 </p>
+
+                <div className="mt-auto d-flex justify-content-end pt-4">
+                  {/* <button
+                    style={{
+                      background: "#000",
+                      color: "#fff",
+                      border: "none",
+                      width: "50%",
+                      padding: "12px 0",
+                      borderRadius: "12px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Contributions
+                  </button> */}
+                </div>
               </div>
             </div>
           ))}
