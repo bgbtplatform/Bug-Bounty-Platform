@@ -40,7 +40,7 @@ export default function HomePage() {
                   letterSpacing: "0.06em",
                 }}
               >
-                BUGSEEK PLATFORM
+                BUGNEST PLATFORM
               </span>
 
               <h1
@@ -65,7 +65,7 @@ export default function HomePage() {
                   lineHeight: "1.8",
                 }}
               >
-                BugSeek gives researchers and companies a cleaner way to
+                BugNest gives researchers and companies a cleaner way to
                 explore programs, review scope, and navigate responsible
                 security workflows without the page feeling noisy or difficult
                 to follow.

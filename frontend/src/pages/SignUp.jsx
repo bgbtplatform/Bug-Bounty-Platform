@@ -85,7 +85,7 @@ function SignUp() {
                                     color: "#111827" 
                                 }}
                             >
-                                Create your BugSeek account
+                                Create your BugNest account
                             </h2>
 
                             {message && <div className="alert alert-success rounded-3 small mb-4">{message}</div>}

@@ -75,7 +75,7 @@ function Login() {
                                     color: "#111827" 
                                 }}
                             >
-                                Login to BugSeek
+                                Login to BugNest
                             </h2>
 
                             {error && <div className="alert alert-danger rounded-3 small mb-4">{message}</div>}
