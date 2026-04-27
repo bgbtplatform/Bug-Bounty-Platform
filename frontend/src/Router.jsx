@@ -19,6 +19,8 @@ import SubmitReport from "./pages/SubmitReport";
 import MyReports from "./pages/MyReports";
 import ReportDetails from "./pages/ReportDetails";
 import EditReport from "./pages/EditReport";
+import ProgramReports from "./pages/ProgramReports";
+import CompanyReportView from "./pages/CompanyReportView";
 
 
 const Router = createBrowserRouter([
@@ -45,7 +47,9 @@ const Router = createBrowserRouter([
             {path:"/company/edit/:id",element:<EditCompany/>},
             {path:"/about",element:<About/>},
             {path:"/resources",element:<Resources/>},
-            { path: "/company/:id/programs", element: <CompanyPrograms /> }            
+            { path: "/company/:id/programs", element: <CompanyPrograms /> },
+            { path: "/company/program/:programId/reports", element: <ProgramReports /> },
+            { path: "/company/program/:programId/reports/:id", element: <CompanyReportView /> },
         ]
     }
 ]);

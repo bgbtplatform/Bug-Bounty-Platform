@@ -1,4 +1,5 @@
 import Report from "../models/report.model.js"
+import Program from "../models/program.model.js"
 import mongoose from "mongoose";
 
 async function addReport(req, res) {
@@ -132,6 +133,68 @@ async function updateReportAttachments(req, res) {
     }
 }
 
+async function getReportsByProgram(req, res) {
+    try {
+        let { programId } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(programId)) {
+            return res.status(400).send({ success: false, message: "Invalid Program ID format" });
+        }
+
+        // Only the program owner may see all reports for their program
+        const program = await Program.findById(programId);
+        if (!program) return res.status(404).send({ success: false, message: "Program not found" });
+        if (program.owner?.toString() !== req.user.id) {
+            return res.status(403).send({ success: false, message: "Unauthorized: You do not own this program" });
+        }
+
+        const reports = await Report.find({ programId })
+            .populate("hunterId", "-password")
+            .sort({ createdAt: -1 });
+
+        res.status(200).send({ success: true, data: reports });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ success: false, message: "Error fetching program reports", error: error.message });
+    }
+}
+
+async function updateReportStatus(req, res) {
+    try {
+        let { id } = req.params;
+        const { status } = req.body;
+
+        const validStatuses = ["NEW", "TRIAGED", "NEED_MORE_INFO", "RESOLVED", "OUT_OF_SCOPE", "REJECTED"];
+        if (!status || !validStatuses.includes(status)) {
+            return res.status(400).send({ success: false, message: "Invalid or missing status value" });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).send({ success: false, message: "Invalid Report ID format" });
+        }
+
+        const report = await Report.findById(id);
+        if (!report) return res.status(404).send({ success: false, message: "Report not found" });
+
+        // Verify the requester owns the program this report belongs to
+        const program = await Program.findById(report.programId);
+        if (!program) return res.status(404).send({ success: false, message: "Associated program not found" });
+        if (program.owner?.toString() !== req.user.id) {
+            return res.status(403).send({ success: false, message: "Unauthorized: You do not own this program" });
+        }
+
+        const updatedReport = await Report.findByIdAndUpdate(
+            id,
+            { status },
+            { new: true }
+        ).populate("hunterId", "-password");
+
+        res.status(200).send({ success: true, message: "Report status updated", data: updatedReport });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({ success: false, message: "Error updating report status", error: error.message });
+    }
+}
+
 export {
     addReport,
     allReports,
@@ -139,5 +202,7 @@ export {
     updateReport,
     updateReportAttachments,
     deleteReport,
-    getMyReports
+    getMyReports,
+    getReportsByProgram,
+    updateReportStatus
 }

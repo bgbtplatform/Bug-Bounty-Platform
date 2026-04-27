@@ -170,7 +170,7 @@ function ProgramDetails() {
         {/* ACTIONS */}
         <div className="row mt-5">
           <div className="col-lg-12">
-            <div className="d-flex gap-3 justify-content-center">
+            <div className="d-flex gap-3 justify-content-center flex-wrap">
               <button
                 className="btn btn-outline-dark px-5 py-3 rounded-3 fw-bold"
                 onClick={() => navigate("/programs")}
@@ -185,6 +185,15 @@ function ProgramDetails() {
               >
                 Explore Scopes
               </button>
+              {user && user._id === program.owner && (
+                <button
+                  className="btn px-5 py-3 rounded-3 fw-bold"
+                  onClick={() => navigate(`/company/program/${program._id}/reports`)}
+                  style={{ minWidth: "200px", background: "#e85d3f", color: "#fff", border: "none" }}
+                >
+                  View Incoming Reports
+                </button>
+              )}
             </div>
           </div>
         </div>
