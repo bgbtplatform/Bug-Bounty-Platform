@@ -179,7 +179,7 @@ export default function HomePage() {
                   Bounties Paid
                 </small>
                 <h2 className="fw-bold mb-2" style={{ ...headingFont, color: "#111827" }}>
-                  $12M+
+                  ₹12M+
                 </h2>
                 <p className="text-muted mb-0">
                   Rewarded through responsible security reports.
