@@ -14,8 +14,11 @@ export default function HomePage() {
     "Clear Reward Structure",
   ];
 
-  const featuredPrograms = ["Google", "Meta", "Stripe"];
-
+  const featuredPrograms = [
+    { name: "Google", id: "69edfa9d697d61d873242d0c" },
+    { name: "Meta", id: "69edfbfb697d61d873242d0f" },
+    { name: "Stripe", id: "69edf67a5825484a0f4b14df" }
+  ];
   return (
     <div className="min-vh-100" style={{ background: "#f8f5ef" }}>
       <section className="container py-5">
@@ -81,7 +84,7 @@ export default function HomePage() {
                   Explore Programs
                 </Link>
                 <Link
-                  to="/report"
+                  to="/company"
                   className="btn px-4 py-2"
                   style={{
                     border: "1px solid #111827",
@@ -89,7 +92,7 @@ export default function HomePage() {
                     fontWeight: "600",
                   }}
                 >
-                  Report Bug
+                  Explore Companies
                 </Link>
               </div>
 
@@ -240,7 +243,10 @@ export default function HomePage() {
               >
                 FEATURED PROGRAMS
               </small>
-              <h2 className="fw-bold mb-0" style={{ ...headingFont, fontSize: "clamp(2rem, 4vw, 3.3rem)" }}>
+              <h2
+                className="fw-bold mb-0"
+                style={{ ...headingFont, fontSize: "clamp(2rem, 4vw, 3.3rem)" }}
+              >
                 A sharper look at the programs researchers notice first.
               </h2>
             </div>
@@ -269,8 +275,9 @@ export default function HomePage() {
                       <small className="text-uppercase text-muted d-block mb-2">
                         Featured Program
                       </small>
-                      <h4 className="fw-bold mb-0">{item}</h4>
+                      <h4 className="fw-bold mb-0">{item.name}</h4>
                     </div>
+
                     <span
                       className="px-3 py-2 rounded-pill"
                       style={{
@@ -286,11 +293,11 @@ export default function HomePage() {
 
                   <p className="text-muted mb-4" style={{ lineHeight: "1.8" }}>
                     Review rewards, compare program expectations, and explore
-                    the type of bounty opportunities available in {item}.
+                    the type of bounty opportunities available in {item.name}.
                   </p>
 
                   <Link
-                    to={`/programs/${item.toLowerCase()}`}
+                    to={`/company/${item.id}`}
                     className="btn btn-sm"
                     style={{
                       background: "#111827",

@@ -22,7 +22,6 @@ import EditReport from "./pages/EditReport";
 import ProgramReports from "./pages/ProgramReports";
 import CompanyReportView from "./pages/CompanyReportView";
 
-
 const Router = createBrowserRouter([
     {
         path:"/",
