@@ -102,5 +102,10 @@ async function getProgramById(req, res) {
 }
 
 export {
-    addProgram, allPrograms, updateProgram, deleteProgram, getProgramsByCompany, getProgramById
-}
+    addProgram, 
+    allPrograms, 
+    updateProgram, 
+    deleteProgram, 
+    getProgramsByCompany, 
+    getProgramById
+}
