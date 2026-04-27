@@ -46,7 +46,6 @@ function EditReport() {
   async function handleUpdate(e) {
     e.preventDefault();
     try {
-      // 1. Update text fields
       await axiosClient.put(`/reports/${id}`, {
         title: formData.title,
         description: formData.description,
@@ -54,7 +53,6 @@ function EditReport() {
         severity: formData.severity
       });
 
-      // 2. Update file if selected
       if (newFile) {
         const fileData = new FormData();
         fileData.append("attachements", newFile);

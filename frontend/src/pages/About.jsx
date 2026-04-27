@@ -8,26 +8,26 @@ function About() {
     letterSpacing: "-0.03em",
   };
 
-const developerCards = [
-  {
-    name: "Amritanshu Gupta",
-    role: "Full Stack Developer",
-    text: "Worked on backend and frontend development, integrated key features, handled debugging.",
-    img: amritImg,
-  },
-  {
-    name: "Snehlata Kumari",
-    role: "Backend Developer",
-    text: "Contributed to backend development, worked on frontend forms, assisted with testing and QA, and helped identify and fix bugs across the website.",
-    img: snehlataImg,
-  },
-  {
-    name: "Raja Vishwkarma",
-    role: "UI/UX Designer",
-    text: "Designed and styled major frontend pages, contributed to backend tasks, and worked on improving user experience and interface consistency.",
-    img: rajImg,
-  },
-];
+  const developerCards = [
+    {
+      name: "Amritanshu Gupta",
+      role: "Full Stack Developer",
+      text: "Worked on backend and frontend development, integrated key features, handled debugging.",
+      img: amritImg,
+    },
+    {
+      name: "Snehlata Kumari",
+      role: "Backend Developer",
+      text: "Contributed to backend development, worked on frontend forms, assisted with testing and QA, and helped identify and fix bugs across the website.",
+      img: snehlataImg,
+    },
+    {
+      name: "Raja Vishwkarma",
+      role: "UI/UX Designer",
+      text: "Designed and styled major frontend pages, contributed to backend tasks, and worked on improving user experience and interface consistency.",
+      img: rajImg,
+    },
+  ];
 
   const statCards = [
     { label: "Focus", value: "Responsible Disclosure" },
@@ -56,7 +56,7 @@ const developerCards = [
                   letterSpacing: "0.06em",
                 }}
               >
-                ABOUT BUGSEEK
+                ABOUT BUGNEST
               </span>
 
               <h1
@@ -81,7 +81,7 @@ const developerCards = [
                   lineHeight: "1.8",
                 }}
               >
-                BugSeek is designed to connect ethical hackers with companies in
+                BugNest is designed to connect ethical hackers with companies in
                 a cleaner, more accessible environment where vulnerabilities can
                 be explored, reviewed, and understood with more clarity.
               </p>
@@ -138,7 +138,7 @@ const developerCards = [
                 Make bug bounty participation feel more approachable.
               </h2>
               <p className="text-muted mb-3" style={{ lineHeight: "1.8" }}>
-                BugSeek is built around the idea that security collaboration
+                BugNest is built around the idea that security collaboration
                 should feel easier to read and navigate. Researchers need
                 clearer program views, and companies need a cleaner way to
                 present scope, assets, and reward expectations.
@@ -217,7 +217,7 @@ const developerCards = [
               DEVELOPERS
             </small>
             <h2 className="fw-bold mb-0" style={{ ...headingFont, fontSize: "clamp(2rem, 4vw, 3.3rem)" }}>
-              Meet the team behind BugSeek's product and platform experience.
+              Meet the team behind BugNest's product and platform experience.
             </h2>
           </div>
           <div className="col-lg-5">
@@ -260,19 +260,6 @@ const developerCards = [
                 </p>
 
                 <div className="mt-auto d-flex justify-content-end pt-4">
-                  {/* <button
-                    style={{
-                      background: "#000",
-                      color: "#fff",
-                      border: "none",
-                      width: "50%",
-                      padding: "12px 0",
-                      borderRadius: "12px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Contributions
-                  </button> */}
                 </div>
               </div>
             </div>

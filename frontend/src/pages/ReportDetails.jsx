@@ -34,7 +34,7 @@ function ReportDetails() {
     <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
       <div className="container" style={{ maxWidth: "1100px" }}>
 
-        {/* HEADER SECTION */}
+        
         <div className="row g-4 align-items-center mb-5">
           <div className="col-lg-12">
             <div

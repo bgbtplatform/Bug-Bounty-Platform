@@ -8,9 +8,8 @@ async function createCompany(req, res) {
       newCompany.logo = `http://localhost:5000/uploads/${req.file.filename}`;
     }
 
-    newCompany.owner = req.user.id; // From auth middleware
-
-    // Multer sends everything as strings, so we must parse nested objects
+    newCompany.owner = req.user.id; 
+    
     if (typeof newCompany.bountyRange === 'string') {
       newCompany.bountyRange = JSON.parse(newCompany.bountyRange);
     }
@@ -159,7 +158,6 @@ async function updateCompanyDetails(req, res) {
     let { id } = req.params;
     let updateData = req.body;
 
-    // Verify Ownership
     const company = await Company.findById(id);
     if (!company) {
       return res.status(404).send({ success: false, message: "Company not found" });
@@ -173,7 +171,6 @@ async function updateCompanyDetails(req, res) {
       updateData.logo = `http://localhost:5000/uploads/${req.file.filename}`;
     }
 
-    // Multer sends everything as strings, so we must parse nested objects
     if (typeof updateData.bountyRange === 'string') {
       updateData.bountyRange = JSON.parse(updateData.bountyRange);
     }

@@ -116,7 +116,7 @@ function ProgramReports() {
     <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
       <div className="container" style={{ maxWidth: "1100px" }}>
 
-        {/* HEADER */}
+        
         <div className="rounded-4 p-4 p-lg-5 bg-white border shadow-sm mb-5">
           <div className="d-flex justify-content-between align-items-start flex-wrap gap-3">
             <div>
@@ -147,7 +147,7 @@ function ProgramReports() {
           </div>
         </div>
 
-        {/* FILTER BAR */}
+        
         <div className="d-flex align-items-center gap-2 flex-wrap mb-4">
           <span className="small fw-bold text-muted text-uppercase" style={{ fontSize: "0.65rem", letterSpacing: "0.05em" }}>
             Filter by Status:
@@ -174,7 +174,7 @@ function ProgramReports() {
           })}
         </div>
 
-        {/* REPORT LIST */}
+        
         {filtered.length === 0 ? (
           <div className="rounded-4 p-5 bg-white border text-center shadow-sm">
             <div className="mb-3" style={{ fontSize: "2.5rem" }}>📭</div>
@@ -194,7 +194,7 @@ function ProgramReports() {
                 onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "")}
               >
                 <div className="d-flex justify-content-between align-items-start flex-wrap gap-3">
-                  {/* Left: info */}
+                  
                   <div className="flex-grow-1">
                     <div className="d-flex align-items-center gap-2 mb-2 flex-wrap">
                       <SeverityBadge severity={r.severity} />
@@ -221,7 +221,7 @@ function ProgramReports() {
                     </div>
                   </div>
 
-                  {/* Right: actions */}
+                  
                   <div className="d-flex flex-column gap-2 align-items-end">
                     <button
                       className="btn btn-dark px-4 py-2 rounded-3 fw-bold"
@@ -239,7 +239,7 @@ function ProgramReports() {
           </div>
         )}
 
-        {/* BACK BUTTON */}
+        
         <div className="mt-5 text-center">
           <button
             className="btn btn-outline-dark px-5 py-3 rounded-3 fw-bold"

@@ -106,7 +106,6 @@ function CompanyReportView() {
     <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
       <div className="container" style={{ maxWidth: "1100px" }}>
 
-        {/* HEADER CARD */}
         <div
           className="rounded-4 p-4 p-lg-5 bg-white shadow-sm mb-4"
           style={{ border: "1px solid #ece6da" }}
@@ -123,7 +122,7 @@ function CompanyReportView() {
                 {report.title}
               </h1>
               <div className="d-flex gap-2 flex-wrap align-items-center">
-                {/* Current status indicator */}
+                
                 <span
                   className="px-3 py-1 rounded-pill fw-bold text-uppercase d-flex align-items-center gap-1"
                   style={{ background: statusStyle.bg, color: statusStyle.color, fontSize: "0.7rem", letterSpacing: "0.05em" }}
@@ -147,7 +146,7 @@ function CompanyReportView() {
           </div>
 
           <div className="row g-5">
-            {/* LEFT: Report content */}
+            
             <div className="col-lg-8">
               <h5 className="fw-bold mb-3" style={displayFont}>Detailed Findings</h5>
               <div
@@ -196,13 +195,13 @@ function CompanyReportView() {
               )}
             </div>
 
-            {/* RIGHT: Sidebar */}
+            
             <div className="col-lg-4">
               <div
                 className="rounded-4 p-4 bg-white border shadow-sm"
                 style={{ position: "sticky", top: "2rem" }}
               >
-                {/* Submission info */}
+                
                 <h6
                   className="fw-bold text-uppercase text-muted mb-4 pb-2 border-bottom"
                   style={{ fontSize: "0.7rem", letterSpacing: "0.05em" }}
@@ -252,7 +251,7 @@ function CompanyReportView() {
                   </div>
                 </div>
 
-                {/* STATUS UPDATE SECTION */}
+                
                 <div
                   className="rounded-3 p-3 mb-3"
                   style={{ background: "#f8f5ef", border: "1px solid #ece6da" }}

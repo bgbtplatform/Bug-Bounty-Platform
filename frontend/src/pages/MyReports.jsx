@@ -43,7 +43,6 @@ function MyReports() {
     <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
       <div className="container">
         
-        {/* HEADER */}
         <div className="row g-4 align-items-center mb-5 text-center text-lg-start">
           <div className="col-lg-8 mx-auto">
             <div className="rounded-4 p-4 p-lg-5 bg-white border shadow-sm">
@@ -61,7 +60,6 @@ function MyReports() {
           </div>
         </div>
 
-        {/* REPORT LIST */}
         <div className="row g-3 justify-content-center">
           {reports.length === 0 ? (
             <div className="col-lg-8">

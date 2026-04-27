@@ -15,7 +15,6 @@ function Navbar() {
       navigate("/");
     } catch (error) {
       console.log(error.response);
-      // Still clear client-side state even if server call fails
       logout();
       navigate("/");
     }
@@ -25,7 +24,6 @@ function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3 sticky-top">
       <div className="container">
 
-        {/* Logo */}
         <Link className="navbar-brand d-flex align-items-center fw-bold" to="/">
           <img
             src={logo}
@@ -37,7 +35,6 @@ function Navbar() {
           BugNest
         </Link>
 
-        {/* Toggle button (mobile) */}
         <button
           className="navbar-toggler"
           type="button"
@@ -50,10 +47,8 @@ function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Navbar content */}
         <div className="collapse navbar-collapse" id="navbarNav">
 
-          {/* Center links */}
           <ul className="navbar-nav mx-auto gap-2 gap-lg-4 fs-5">
             <li className="nav-item">
               <NavLink className={({ isActive }) => `nav-link fw-semibold custom-nav-link ${isActive ? "active-link" : "text-dark"}`} to="/">Home</NavLink>

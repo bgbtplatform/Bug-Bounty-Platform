@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 async function addReport(req, res) {
     try {
         let newReport = req.body;
-        newReport.hunterId = req.user.id; // From auth middleware
+        newReport.hunterId = req.user.id; 
 
         if (req.file) {
             newReport.attachements = `http://localhost:5000/uploads/${req.file.filename}`;
@@ -104,7 +104,6 @@ async function updateReportAttachments(req, res) {
         const report = await Report.findById(id);
         if (!report) return res.status(404).send({ success: false, message: "Report not found" });
         
-        // Verify ownership
         if (report.hunterId.toString() !== req.user.id) {
             return res.status(403).send({ success: false, message: "Unauthorized" });
         }
@@ -140,7 +139,6 @@ async function getReportsByProgram(req, res) {
             return res.status(400).send({ success: false, message: "Invalid Program ID format" });
         }
 
-        // Only the program owner may see all reports for their program
         const program = await Program.findById(programId);
         if (!program) return res.status(404).send({ success: false, message: "Program not found" });
         if (program.owner?.toString() !== req.user.id) {
@@ -175,7 +173,6 @@ async function updateReportStatus(req, res) {
         const report = await Report.findById(id);
         if (!report) return res.status(404).send({ success: false, message: "Report not found" });
 
-        // Verify the requester owns the program this report belongs to
         const program = await Program.findById(report.programId);
         if (!program) return res.status(404).send({ success: false, message: "Associated program not found" });
         if (program.owner?.toString() !== req.user.id) {
@@ -205,4 +202,4 @@ export {
     getMyReports,
     getReportsByProgram,
     updateReportStatus
-}
+}

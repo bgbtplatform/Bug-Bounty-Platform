@@ -32,7 +32,6 @@ function ScopeDetails() {
     <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
       <div className="container" style={{ maxWidth: "800px" }}>
 
-        {/* HEADER */}
         <div className="text-center mb-5">
             <span
               className="d-inline-block px-3 py-2 rounded-pill mb-4"
@@ -50,7 +49,6 @@ function ScopeDetails() {
             <p className="text-muted fw-semibold" style={{ color: "#e85d3f" }}>{program?.title}</p>
         </div>
 
-        {/* DETAILS CARD */}
         <div 
           className="rounded-4 p-4 p-lg-5 mb-5 bg-white shadow-sm"
           style={{ border: "1px solid #ece6da" }}
@@ -105,7 +103,6 @@ function ScopeDetails() {
           )}
         </div>
 
-        {/* SUBMIT REPORT ACTION */}
         {user && user.role === "HUNTER" && (
           <div 
             className="rounded-4 p-4 mb-4 text-center"
@@ -123,7 +120,6 @@ function ScopeDetails() {
           </div>
         )}
 
-        {/* BACK BUTTON */}
         <button
           className="btn btn-outline-dark w-100 py-3 rounded-3 fw-bold"
           onClick={() => navigate("/scope", { state: { program } })}

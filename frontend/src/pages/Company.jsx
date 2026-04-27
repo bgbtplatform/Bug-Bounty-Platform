@@ -74,7 +74,6 @@ function Company() {
     <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
       <div className="container">
         
-        {/* HERO SECTION */}
         <div className="row g-4 align-items-center mb-5">
           <div className="col-lg-8">
             <div
@@ -143,7 +142,6 @@ function Company() {
           )}
         </div>
 
-        {/* MODAL (Add Company) */}
         {showForm && (
           <div className="modal d-block" style={{ backgroundColor: "rgba(17, 24, 39, 0.8)", backdropFilter: "blur(4px)" }}>
             <div className="modal-dialog modal-lg modal-dialog-centered">
@@ -235,7 +233,6 @@ function Company() {
           </div>
         )}
 
-        {/* COMPANY CARDS */}
         <div className="row g-4">
           {companies.map((p) => (
             <div className="col-md-6 col-lg-4" key={p._id}>
@@ -304,7 +301,6 @@ function Company() {
           ))}
         </div>
 
-        {/* EMPTY STATE */}
         {companies.length === 0 && (
           <div className="text-center py-5 rounded-4 bg-white border" style={{ borderStyle: "dashed !important" }}>
             <p className="text-muted mb-0">No companies found. Organizations are constantly joining, check back soon.</p>

@@ -7,7 +7,6 @@ const JWT_SECRET = process.env.JWT_SECRET || "bug-bounty-auth-secret";
 const cookieOptions = {
     httpOnly: true,
     secure: false,
-    // sameSite: "lax", 
     path: "/"
 };
 
@@ -17,7 +16,6 @@ function removePassword(user) {
     return userResponse;
 }
 
-// POST /users  — Register a new user
 async function addUser(req, res) {
     try {
         let newUser = req.body;
@@ -40,7 +38,6 @@ async function addUser(req, res) {
             return res.status(400).send({ message: "User already exists with this email or username" });
         }
 
-        // Hash password before saving
         const salt = await bcrypt.genSalt(10);
         newUser.password = await bcrypt.hash(newUser.password, salt);
 
@@ -53,7 +50,6 @@ async function addUser(req, res) {
     }
 }
 
-// GET /users  — All users (admin)
 async function allUsers(req, res) {
     try {
         let { role } = req.query;
@@ -69,7 +65,6 @@ async function allUsers(req, res) {
     }
 }
 
-// GET /users/:id
 async function getUserById(req, res) {
     try {
         let { id } = req.params;
@@ -87,7 +82,6 @@ async function getUserById(req, res) {
     }
 }
 
-// GET /users/search?query=...
 async function searchUser(req, res) {
     try {
         let { query } = req.query;
@@ -108,7 +102,6 @@ async function searchUser(req, res) {
     }
 }
 
-// PUT /users/:id/avatar
 async function updateUserAvatar(req, res) {
     try {
         let { id } = req.params;
@@ -135,13 +128,11 @@ async function updateUserAvatar(req, res) {
     }
 }
 
-// PUT /users/:id
 async function updateUser(req, res) {
     try {
         let { id } = req.params;
         let updatedData = req.body;
 
-        // If password is being updated, hash it
         if (updatedData.password) {
             const salt = await bcrypt.genSalt(10);
             updatedData.password = await bcrypt.hash(updatedData.password, salt);
@@ -165,7 +156,6 @@ async function updateUser(req, res) {
     }
 }
 
-// DELETE /users/:id
 async function deleteUser(req, res) {
     try {
         let { id } = req.params;
@@ -183,7 +173,6 @@ async function deleteUser(req, res) {
     }
 }
 
-// POST /users/login
 async function loginUser(req, res) {
     try {
         let { email, password } = req.body;
@@ -212,7 +201,6 @@ async function loginUser(req, res) {
     }
 }
 
-// GET /users/logout
 async function logout(req, res) {
     try {
         res.clearCookie("token", cookieOptions);
@@ -223,7 +211,6 @@ async function logout(req, res) {
     }
 }
 
-// GET /users/current
 async function getCurrentUser(req, res) {
     try {
         let user = await User.findById(req.user.id).select("-password");

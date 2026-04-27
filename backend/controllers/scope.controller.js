@@ -1,12 +1,10 @@
 import Scope from "../models/scope.model.js";
 import Program from "../models/program.model.js";
 
-// ADD SCOPE
 async function addScope(req, res) {
   try {
     let { program: programId } = req.body;
     
-    // Verify Program Ownership
     const program = await Program.findById(programId);
     if (!program) return res.status(404).json({ success: false, message: "Program not found" });
     
@@ -35,7 +33,6 @@ async function addScope(req, res) {
 }
 
 
-// GET SCOPES BY COMPANY
 async function getScopesByCompany(req, res) {
   try {
     let { companyId } = req.params;
@@ -60,7 +57,6 @@ async function getScopesByCompany(req, res) {
 }
 
 
-// GET SCOPES BY PROGRAM
 async function getScopesByProgram(req, res) {
   try {
     let { programId } = req.params;
@@ -85,7 +81,6 @@ async function getScopesByProgram(req, res) {
 }
 
 
-// GET SINGLE SCOPE
 async function getScope(req, res) {
   try {
     let { id } = req.params;
@@ -116,7 +111,6 @@ async function getScope(req, res) {
 }
 
 
-// UPDATE SCOPE
 async function updateScope(req, res) {
   try {
     let { id } = req.params;
@@ -156,7 +150,6 @@ async function updateScope(req, res) {
 }
 
 
-// DELETE SCOPE
 async function deleteScope(req, res) {
   try {
     let { id } = req.params;
@@ -189,7 +182,6 @@ async function deleteScope(req, res) {
 }
 
 
-// GET ALL SCOPES
 async function getAllScopes(req, res) {
   try {
     let { type, inScope, maxSeverity } = req.query;

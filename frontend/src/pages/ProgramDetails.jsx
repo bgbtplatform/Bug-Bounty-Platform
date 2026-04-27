@@ -31,7 +31,6 @@ function ProgramDetails() {
     <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
       <div className="container" style={{ maxWidth: "1100px" }}>
         
-        {/* HEADER SECTION */}
         <div className="row g-4 align-items-center mb-5">
           <div className="col-lg-12">
             <div
@@ -102,9 +101,8 @@ function ProgramDetails() {
           </div>
         </div>
 
-        {/* GRID CONTENT */}
         <div className="row g-4">
-          {/* REWARDS */}
+          
           <div className="col-md-4">
             <div 
               className="h-100 rounded-4 p-4"
@@ -132,7 +130,7 @@ function ProgramDetails() {
             </div>
           </div>
 
-          {/* RULES */}
+          
           <div className="col-md-4">
             <div 
               className="h-100 rounded-4 p-4"
@@ -149,7 +147,7 @@ function ProgramDetails() {
             </div>
           </div>
 
-          {/* POLICY */}
+          
           <div className="col-md-4">
             <div 
               className="h-100 rounded-4 p-4"
@@ -167,7 +165,7 @@ function ProgramDetails() {
           </div>
         </div>
 
-        {/* ACTIONS */}
+        
         <div className="row mt-5">
           <div className="col-lg-12">
             <div className="d-flex gap-3 justify-content-center flex-wrap">

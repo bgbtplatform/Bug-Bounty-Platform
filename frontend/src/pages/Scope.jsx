@@ -62,7 +62,7 @@ function Scope() {
     <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
       <div className="container">
 
-        {/* HEADER SECTION */}
+        
         <div className="row g-4 align-items-center mb-5">
           <div className="col-lg-8">
             <div
@@ -119,7 +119,6 @@ function Scope() {
           )}
         </div>
 
-        {/* ADD MODAL */}
         {showForm && (
             <div className="modal d-block" style={{ backgroundColor: "rgba(17, 24, 39, 0.8)", backdropFilter: "blur(4px)" }}>
                 <div className="modal-dialog modal-dialog-centered">
@@ -170,7 +169,6 @@ function Scope() {
             </div>
         )}
 
-        {/* SCOPE LIST */}
         <div className="row g-3">
           {scopes.length > 0 ? (
             scopes.map((s) => (
@@ -236,7 +234,6 @@ function Scope() {
           )}
         </div>
 
-        {/* BACK BUTTON */}
         <div className="mt-5 text-center">
           <button
             className="btn btn-link text-decoration-none fw-bold"

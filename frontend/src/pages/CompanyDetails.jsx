@@ -46,7 +46,6 @@ function CompanyDetails() {
     <div className="py-5" style={{ background: "#f8f5ef", minHeight: "100vh" }}>
       <div className="container" style={{ maxWidth: "1100px" }}>
 
-        {/* HERO SECTION */}
         <div className="row g-4 align-items-center mb-5">
           <div className="col-lg-12">
             <div
@@ -80,7 +79,7 @@ function CompanyDetails() {
                       className="text-decoration-none fw-semibold" 
                       style={{ color: "#e85d3f" }}
                     >
-                      {company.website?.replace(/^https?:\/\//, '')} &nearr;
+                      {company.website?.replace(/^https?:\/\//, '')}
                     </a>
                   </div>
                 </div>
@@ -103,10 +102,8 @@ function CompanyDetails() {
         </div>
 
         <div className="row g-4">
-          {/* LEFT CONTENT */}
           <div className="col-lg-8">
             <div className="row g-4">
-              {/* TOP METRICS */}
               <div className="col-sm-6">
                 <div className="rounded-4 p-4 h-100 bg-white border shadow-sm">
                   <small className="text-muted d-block text-uppercase fw-bold mb-2" style={{ fontSize: "0.65rem", letterSpacing: "0.05em" }}>
@@ -131,7 +128,6 @@ function CompanyDetails() {
                 </div>
               </div>
 
-              {/* SEVERITY REWARDS */}
               <div className="col-12">
                 <div className="rounded-4 p-4 bg-white border shadow-sm">
                   <h5 className="fw-bold mb-4 pb-2 border-bottom" style={displayFont}>Reward Tiers</h5>
@@ -156,7 +152,6 @@ function CompanyDetails() {
                 </div>
               </div>
 
-              {/* ASSETS */}
               <div className="col-12">
                 <div className="rounded-4 p-4 bg-white border shadow-sm">
                   <h5 className="fw-bold mb-4 pb-2 border-bottom" style={displayFont}>Eligible Assets</h5>
@@ -176,7 +171,6 @@ function CompanyDetails() {
             </div>
           </div>
 
-          {/* RIGHT SIDEBAR / ACTIONS */}
           <div className="col-lg-4">
             <div 
               className="rounded-4 p-4 h-100 d-flex flex-column gap-3 shadow-sm"

@@ -18,12 +18,10 @@ import auth from "../middleware/auth.middleware.js";
 
 let router = express.Router();
 
-// Public routes
 router.post("/", upload.single("avatarUrl"), addUser);
 router.post("/login", loginUser);
 router.get("/search", searchUser);
 
-// Protected routes — order matters: specific paths before /:id
 router.get("/current", auth, getCurrentUser);
 router.get("/logout", auth, logout);
 router.get("/", auth, allUsers);
