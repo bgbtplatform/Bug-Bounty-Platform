@@ -23,9 +23,9 @@ const reportSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    attachements:{
+    attachments:{
         type:String,
-        requred:true
+        required:true
     },
     severity:{
         type:String,

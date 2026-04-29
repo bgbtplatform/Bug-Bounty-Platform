@@ -12,7 +12,7 @@ const programSchema = new mongoose.Schema({
     },
     description:{
         type:String,
-        req:true
+        required:true
     },
     rules:[{
         type:String

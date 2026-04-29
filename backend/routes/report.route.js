@@ -18,12 +18,12 @@ let router = express.Router();
 
 router.get("/my", auth, getMyReports);
 router.get("/program/:programId", auth, getReportsByProgram);
-router.post("/", auth, upload.single("attachements"), addReport);
+router.post("/", auth, upload.single("attachments"), addReport);
 router.get("/", auth, allReports);
 router.patch("/:id/status", auth, updateReportStatus);
 router.get("/:id", auth, getReportById);
 router.put("/:id", auth, updateReport);
-router.put("/:id/attachments", auth, upload.single("attachements"), updateReportAttachments);
+router.put("/:id/attachments", auth, upload.single("attachments"), updateReportAttachments);
 router.delete("/:id", auth, deleteReport);
 
 export default router;

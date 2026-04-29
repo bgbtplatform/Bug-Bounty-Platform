@@ -2,7 +2,11 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
 
-const JWT_SECRET = process.env.JWT_SECRET || "bug-bounty-auth-secret";
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+    console.error("FATAL ERROR: JWT_SECRET is not defined.");
+    process.exit(1);
+}
 
 const cookieOptions = {
     httpOnly: true,

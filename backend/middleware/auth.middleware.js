@@ -1,6 +1,10 @@
 import jwt from "jsonwebtoken"
 
-const JWT_SECRET = process.env.JWT_SECRET || "bug-bounty-auth-secret";
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+    console.error("FATAL ERROR: JWT_SECRET is not defined.");
+    process.exit(1);
+}
 
 function getToken(req) {
     if (req.cookies?.token) return req.cookies.token;

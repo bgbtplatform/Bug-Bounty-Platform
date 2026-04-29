@@ -8,7 +8,7 @@ async function addReport(req, res) {
         newReport.hunterId = req.user.id; 
 
         if (req.file) {
-            newReport.attachements = `http://localhost:5000/uploads/${req.file.filename}`;
+            newReport.attachments = `http://localhost:5000/uploads/${req.file.filename}`;
         }
         let createdReport = await Report.create(newReport);
         res.status(201).send({ success: true, message: "Report added", data: createdReport });
@@ -24,6 +24,16 @@ async function allReports(req, res) {
         let filter = {};
         if (status) filter.status = status;
         if (severity) filter.severity = severity;
+
+        // Fetch programs owned by the current user to allow them to view their programs' reports
+        const myPrograms = await Program.find({ owner: req.user.id }).select("_id");
+        const myProgramIds = myPrograms.map(p => p._id);
+
+        // Security Patch (IDOR): Only return reports where the user is either the hunter OR the program owner
+        filter.$or = [
+            { hunterId: req.user.id },
+            { programId: { $in: myProgramIds } }
+        ];
 
         let reports = await Report.find(filter).populate("hunterId", "-password").sort({ createdAt: -1 });
         res.status(200).send({ success: true, data: reports });
@@ -41,6 +51,16 @@ async function getReportById(req, res) {
         }
         let report = await Report.findById(id).populate("hunterId", "-password");
         if (report) {
+            // Security Patch (IDOR): Ensure only the hunter or the program owner can view the report
+            const isHunter = report.hunterId._id.toString() === req.user.id;
+            
+            const program = await Program.findById(report.programId);
+            const isProgramOwner = program && program.owner?.toString() === req.user.id;
+
+            if (!isHunter && !isProgramOwner) {
+                return res.status(403).send({ success: false, message: "Unauthorized: You do not have permission to view this report" });
+            }
+
             res.status(200).send({ success: true, data: report });
         } else {
             res.status(404).send({ success: false, message: "Report not found" });
@@ -111,7 +131,7 @@ async function updateReportAttachments(req, res) {
         let updatedReport = await Report.findOneAndUpdate(
             { _id: id },
             {
-                attachements: `http://localhost:5000/uploads/${req.file.filename}`,
+                attachments: `http://localhost:5000/uploads/${req.file.filename}`,
             },
             { new: true }
         );
