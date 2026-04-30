@@ -46,7 +46,7 @@ const SuperAdminLogin = () => {
                         <div className="mb-4">
                             <label className="form-label fw-bold text-muted small text-uppercase">Admin Email</label>
                             <input 
-                                type="email" 
+                                type="text" 
                                 className="form-control form-control-lg bg-light border-0" 
                                 value={email} 
                                 onChange={(e) => setEmail(e.target.value)} 
