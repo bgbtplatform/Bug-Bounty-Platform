@@ -100,7 +100,7 @@ function Scope() {
               </p>
             </div>
           </div>
-          {user && user._id === program.owner && (
+          {user && (user._id === program.owner || user.role === 'SUPER_ADMIN') && (
             <div className="col-lg-4">
               <div 
                 className="rounded-4 p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center shadow-sm"

@@ -85,7 +85,7 @@ function CompanyDetails() {
                 </div>
 
                 <div className="d-flex gap-2 align-items-center">
-                  {user && user._id === company.owner && (
+                  {user && (user._id === company.owner || user.role === 'SUPER_ADMIN') && (
                     <>
                       <button className="btn btn-sm btn-outline-dark px-4 rounded-pill fw-bold" onClick={() => navigate(`/company/edit/${id}`)}>Edit</button>
                       <button className="btn btn-sm btn-outline-danger px-4 rounded-pill fw-bold" onClick={handleDelete}>Delete</button>

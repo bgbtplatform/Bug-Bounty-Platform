@@ -29,11 +29,13 @@ async function allReports(req, res) {
         const myPrograms = await Program.find({ owner: req.user.id }).select("_id");
         const myProgramIds = myPrograms.map(p => p._id);
 
-        // Security Patch (IDOR): Only return reports where the user is either the hunter OR the program owner
-        filter.$or = [
-            { hunterId: req.user.id },
-            { programId: { $in: myProgramIds } }
-        ];
+        // Security Patch (IDOR): Only return reports where the user is either the hunter OR the program owner, unless SUPER_ADMIN
+        if (req.user.role !== 'SUPER_ADMIN') {
+            filter.$or = [
+                { hunterId: req.user.id },
+                { programId: { $in: myProgramIds } }
+            ];
+        }
 
         let reports = await Report.find(filter).populate("hunterId", "-password").sort({ createdAt: -1 });
         res.status(200).send({ success: true, data: reports });
@@ -57,7 +59,7 @@ async function getReportById(req, res) {
             const program = await Program.findById(report.programId);
             const isProgramOwner = program && program.owner?.toString() === req.user.id;
 
-            if (!isHunter && !isProgramOwner) {
+            if (!isHunter && !isProgramOwner && req.user.role !== 'SUPER_ADMIN') {
                 return res.status(403).send({ success: false, message: "Unauthorized: You do not have permission to view this report" });
             }
 
@@ -76,7 +78,7 @@ async function updateReport(req, res) {
         let { id } = req.params;
         const report = await Report.findById(id);
         if (!report) return res.status(404).send({ success: false, message: "Report not found" });
-        if (report.hunterId.toString() !== req.user.id) return res.status(403).send({ success: false, message: "Unauthorized" });
+        if (report.hunterId.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') return res.status(403).send({ success: false, message: "Unauthorized" });
 
         let updatedReport = await Report.findOneAndUpdate({ _id: id }, req.body, { new: true });
         res.status(200).send({ success: true, message: "Report updated", data: updatedReport });
@@ -91,7 +93,7 @@ async function deleteReport(req, res) {
         let { id } = req.params;
         const report = await Report.findById(id);
         if (!report) return res.status(404).send({ success: false, message: "Report not found" });
-        if (report.hunterId.toString() !== req.user.id) return res.status(403).send({ success: false, message: "Unauthorized" });
+        if (report.hunterId.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') return res.status(403).send({ success: false, message: "Unauthorized" });
 
         await Report.findByIdAndDelete(id);
         res.status(200).send({ success: true, message: "Report deleted" });
@@ -124,7 +126,7 @@ async function updateReportAttachments(req, res) {
         const report = await Report.findById(id);
         if (!report) return res.status(404).send({ success: false, message: "Report not found" });
         
-        if (report.hunterId.toString() !== req.user.id) {
+        if (report.hunterId.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
             return res.status(403).send({ success: false, message: "Unauthorized" });
         }
 
@@ -161,7 +163,7 @@ async function getReportsByProgram(req, res) {
 
         const program = await Program.findById(programId);
         if (!program) return res.status(404).send({ success: false, message: "Program not found" });
-        if (program.owner?.toString() !== req.user.id) {
+        if (program.owner?.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
             return res.status(403).send({ success: false, message: "Unauthorized: You do not own this program" });
         }
 
@@ -195,7 +197,7 @@ async function updateReportStatus(req, res) {
 
         const program = await Program.findById(report.programId);
         if (!program) return res.status(404).send({ success: false, message: "Associated program not found" });
-        if (program.owner?.toString() !== req.user.id) {
+        if (program.owner?.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
             return res.status(403).send({ success: false, message: "Unauthorized: You do not own this program" });
         }
 

@@ -122,6 +122,12 @@ async function updateCompanyLogo(req, res) {
       });
     }
 
+    let company = await Company.findById(id);
+    if (!company) return res.status(404).send({ success: false, message: "Company not found" });
+    if (company.owner?.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
+      return res.status(403).send({ success: false, message: "Unauthorized to update this company logo" });
+    }
+
     let updatedCompany = await Company.findOneAndUpdate(
       { _id: id },
       {
@@ -163,7 +169,7 @@ async function updateCompanyDetails(req, res) {
       return res.status(404).send({ success: false, message: "Company not found" });
     }
     
-    if (company.owner?.toString() !== req.user.id) {
+    if (company.owner?.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
       return res.status(403).send({ success: false, message: "Unauthorized to update this company" });
     }
 
@@ -213,6 +219,12 @@ async function updateCompanyDetails(req, res) {
 async function deleteCompany(req, res) {
   try {
     let { id } = req.params;
+
+    let companyCheck = await Company.findById(id);
+    if (!companyCheck) return res.status(404).send({ success: false, message: "Company not found" });
+    if (companyCheck.owner?.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
+      return res.status(403).send({ success: false, message: "Unauthorized to delete this company" });
+    }
 
     let company = await Company.findOneAndDelete({ _id: id });
 

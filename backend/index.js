@@ -16,6 +16,8 @@ import companyRoutes from './routes/company.route.js';
 import programRoutes from './routes/program.route.js';
 import scopeRoutes from "./routes/scope.route.js";
 import reportRouter from './routes/report.route.js';
+import blogRoutes from './routes/blog.route.js';
+import adminRoutes from './routes/admin.route.js';
 
 const app = express();
 
@@ -88,6 +90,8 @@ app.use("/program", programRoutes);
 app.use("/scope", scopeRoutes);
 app.use("/report", reportRouter);
 app.use("/reports", reportRouter);
+app.use("/blogs", blogRoutes);
+app.use("/admin", adminRoutes);
 
 connectToDB().then(() => {
     app.listen(5000, "0.0.0.0", () => {

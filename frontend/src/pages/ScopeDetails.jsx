@@ -95,7 +95,7 @@ function ScopeDetails() {
             </div>
           </div>
 
-          {user && user._id === scope.owner && (
+          {user && (user._id === scope.owner || user.role === 'SUPER_ADMIN') && (
             <div className="d-flex gap-2 mt-5 pt-4 border-top">
                 <button className="btn btn-outline-dark px-4 rounded-3" onClick={() => navigate(`/scope/edit/${scope._id}`, { state: { program } })}>Edit Asset</button>
                 <button className="btn btn-outline-danger px-4 rounded-3" onClick={handleDelete}>Delete Asset</button>

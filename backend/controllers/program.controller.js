@@ -35,7 +35,7 @@ async function updateProgram(req, res) {
         if (!program) {
             return res.status(404).send({ success: false, message: "Program not found" });
         }
-        if (program.owner?.toString() !== req.user.id) {
+        if (program.owner?.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
             return res.status(403).send({ success: false, message: "Unauthorized to update this program" });
         }
 
@@ -60,7 +60,7 @@ async function deleteProgram(req, res) {
         if (!program) {
             return res.status(404).send({ success: false, message: "Program not found" });
         }
-        if (program.owner?.toString() !== req.user.id) {
+        if (program.owner?.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
             return res.status(403).send({ success: false, message: "Unauthorized to delete this program" });
         }
 

@@ -8,8 +8,8 @@ async function addScope(req, res) {
     const program = await Program.findById(programId);
     if (!program) return res.status(404).json({ success: false, message: "Program not found" });
     
-    if (program.owner?.toString() !== req.user.id) {
-      return res.status(403).json({ success: false, message: "Only the program owner can add scopes" });
+    if (program.owner?.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
+      return res.status(403).json({ success: false, message: "Only the program owner or super admin can add scopes" });
     }
 
     let newScope = req.body;
@@ -118,7 +118,7 @@ async function updateScope(req, res) {
 
     const scope = await Scope.findById(id);
     if (!scope) return res.status(404).send({ success: false, message: "Scope not found" });
-    if (scope.owner?.toString() !== req.user.id) return res.status(403).send({ success: false, message: "Unauthorized" });
+    if (scope.owner?.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') return res.status(403).send({ success: false, message: "Unauthorized" });
 
     let updatedScope = await Scope.findOneAndUpdate(
       { _id: id },
@@ -155,7 +155,7 @@ async function deleteScope(req, res) {
     let { id } = req.params;
     const scope = await Scope.findById(id);
     if (!scope) return res.status(404).send({ success: false, message: "Scope not found" });
-    if (scope.owner?.toString() !== req.user.id) return res.status(403).send({ success: false, message: "Unauthorized" });
+    if (scope.owner?.toString() !== req.user.id && req.user.role !== 'SUPER_ADMIN') return res.status(403).send({ success: false, message: "Unauthorized" });
 
     await Scope.findByIdAndDelete(id);
 

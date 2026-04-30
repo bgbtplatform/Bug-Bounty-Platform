@@ -63,6 +63,9 @@ function Navbar() {
               <NavLink className={({ isActive }) => `nav-link fw-semibold custom-nav-link ${isActive ? "active-link" : "text-dark"}`} to="/resources">Resources</NavLink>
             </li>
             <li className="nav-item">
+              <NavLink className={({ isActive }) => `nav-link fw-semibold custom-nav-link ${isActive ? "active-link" : "text-dark"}`} to="/blog">Blog</NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink className={({ isActive }) => `nav-link fw-semibold custom-nav-link ${isActive ? "active-link" : "text-dark"}`} to="/about">About</NavLink>
             </li>
           </ul>
@@ -76,6 +79,9 @@ function Navbar() {
                   </span>
                   {user.role === 'HUNTER' && (
                     <Link className="btn btn-outline-dark" to="/my-reports">My Reports</Link>
+                  )}
+                  {user.role === 'SUPER_ADMIN' && (
+                    <Link className="btn btn-danger fw-bold shadow-sm" to="/admin-nexus-90210">Admin Nexus</Link>
                   )}
                   <button className="btn btn-outline-danger" type="button" onClick={handleLogout}>
                     Log Out

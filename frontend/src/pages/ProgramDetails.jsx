@@ -77,7 +77,7 @@ function ProgramDetails() {
                     >
                       {program.status}
                     </span>
-                    {user && user._id === program.owner && (
+                    {user && (user._id === program.owner || user.role === 'SUPER_ADMIN') && (
                       <div className="d-flex gap-2">
                         <button className="btn btn-sm btn-outline-dark px-3 rounded-pill" onClick={() => navigate(`/program/edit/${program._id}`)}>Edit</button>
                         <button className="btn btn-sm btn-outline-danger px-3 rounded-pill" onClick={handleDelete}>Delete</button>
@@ -183,7 +183,7 @@ function ProgramDetails() {
               >
                 Explore Scopes
               </button>
-              {user && user._id === program.owner && (
+              {user && (user._id === program.owner || user.role === 'SUPER_ADMIN') && (
                 <button
                   className="btn px-5 py-3 rounded-3 fw-bold"
                   onClick={() => navigate(`/company/program/${program._id}/reports`)}

@@ -21,6 +21,11 @@ import ReportDetails from "./pages/ReportDetails";
 import EditReport from "./pages/EditReport";
 import ProgramReports from "./pages/ProgramReports";
 import CompanyReportView from "./pages/CompanyReportView";
+import Blog from "./pages/Blog";
+import BlogDetails from "./pages/BlogDetails";
+import CreateBlog from "./pages/CreateBlog";
+import SuperAdminDashboard from "./pages/admin_nexus/SuperAdminDashboard";
+import SuperAdminLogin from "./pages/admin_nexus/SuperAdminLogin";
 
 const Router = createBrowserRouter([
     {
@@ -49,6 +54,11 @@ const Router = createBrowserRouter([
             { path: "/company/:id/programs", element: <CompanyPrograms /> },
             { path: "/company/program/:programId/reports", element: <ProgramReports /> },
             { path: "/company/program/:programId/reports/:id", element: <CompanyReportView /> },
+            { path: "/blog", element: <Blog /> },
+            { path: "/blog/create", element: <CreateBlog /> },
+            { path: "/blog/:id", element: <BlogDetails /> },
+            { path: "/admin-nexus-90210", element: <SuperAdminDashboard /> },
+            { path: "/admin", element: <SuperAdminLogin /> },
         ]
     }
 ]);

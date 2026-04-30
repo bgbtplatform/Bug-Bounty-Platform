@@ -109,6 +109,9 @@ async function searchUser(req, res) {
 async function updateUserAvatar(req, res) {
     try {
         let { id } = req.params;
+        if (id !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
+            return res.status(403).send({ message: "Unauthorized to update this user's avatar" });
+        }
 
         if (!req.file) {
             return res.status(400).send({ message: "Avatar image is required" });
@@ -135,6 +138,10 @@ async function updateUserAvatar(req, res) {
 async function updateUser(req, res) {
     try {
         let { id } = req.params;
+        if (id !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
+            return res.status(403).send({ message: "Unauthorized to update this user" });
+        }
+        
         let updatedData = req.body;
 
         if (updatedData.password) {
@@ -163,6 +170,10 @@ async function updateUser(req, res) {
 async function deleteUser(req, res) {
     try {
         let { id } = req.params;
+        if (id !== req.user.id && req.user.role !== 'SUPER_ADMIN') {
+            return res.status(403).send({ message: "Unauthorized to delete this user" });
+        }
+        
         let user = await User.findOneAndDelete({ _id: id });
 
         if (user) {
